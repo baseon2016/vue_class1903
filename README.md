@@ -39,7 +39,7 @@
 vue 允许在 template 内写 js
 
 - 在两个标签中间,使用`{{js语法}}`,这个 js 必须有返回值
-- 在开始标签内,需要使用指令 v-on 例如下
+- 在开始标签内,需要使用指令 v-bind 例如下
 
 ```js
 <h1 v-bind:class="js语法" />
@@ -55,7 +55,7 @@ vue 处理组件样式的方案
 - 对象语法 例: 加上 active class
 
 ```js
-<h1 v-bind:style="{color:'red',fontSize:'16px'}" />
+<h1 v-bind:class="{active:true}" />
 ```
 
 - 数组语法 例：加上了 active 以及 bg class 名
@@ -75,7 +75,7 @@ vue 处理组件样式的方案
 - 对象语法 例:
 
 ```js
-<h1 v-bind:class="{active:true}" />
+<h1 v-bind:style="{color:'red',fontSize:'16px'}" />
 ```
 
 - 数组语法 例：
@@ -99,7 +99,7 @@ vue 处理组件样式的方案
 使用 v-on 指令绑定事件 可以简写成@ 例
 
 ```js
-<button v-onclick="funName">按钮</button>
+<button v-on:click="funName">按钮</button>
 ```
 
 事件函数(funName)需要在组件默认导出下添加一个 methods 属性,该属性的属性值是一个对象,该对象下的方法就可以当做事件函数。在 template 内 methods 对象下的方法可以直接使用
