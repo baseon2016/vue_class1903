@@ -2,14 +2,23 @@
   <div>
     <div class="carousel">
       <div class="img">
-        <img v-for="item in carouselImg" :key="item.id" :src="item.imgSrc" v-show="item.show">
+        <img
+          v-for="(item,index) in carouselImg"
+          :key="item.id"
+          :src="item.imgSrc"
+          :class="{active:index===activeNum}"
+        >
       </div>
-      <div class="next">下一个</div>
-      <div class="pre">上一个</div>
+      <div class="next" @click="handleNext">下一个</div>
+      <div class="pre" @click="handlePre">上一个</div>
       <div class="pagination">
         <ul>
-          <li v-for="item in carouselImg" :key="item.id">
-            <a @click="handleClick" href="javascript:void(0)"></a>
+          <li v-for="(item,index) in carouselImg" :key="item.id">
+            <a
+              :class="{active:index===activeNum}"
+              @mouseenter="pagemove(index)"
+              href="javascript:void(0)"
+            ></a>
           </li>
         </ul>
       </div>
@@ -22,6 +31,7 @@ export default {
   name: "app",
   data() {
     return {
+      activeNum: 0,
       carouselImg: [
         {
           id: "img01",
@@ -51,16 +61,31 @@ export default {
     };
   },
   methods: {
-    handleClick() {
-      console.log(this);
+    pagemove(index) {
+      this.activeNum = index;
+      for (let i = 0; i < this.carouselImg.length; i++) {
+        this.carouselImg[i].show = false;
+        console.log(this.carouselImg[i].show);
+      }
+      this.carouselImg[index].show = true;
+      console.log(this.carouselImg[index].show);
+    },
+    handlePre() {
+      if (this.activeNum === 0) {
+        this.activeNum = this.carouselImg.length - 1;
+      } else {
+        this.activeNum--;
+      }
+    },
+    handleNext() {
+      if (this.activeNum === this.carouselImg.length - 1) {
+        this.activeNum = 0;
+      } else {
+        this.activeNum++;
+      }
     }
   }
 };
-var list = document.getElementsByTagName("li");
-for (let i = 0; i < list.length; i++) {
-  list[i].dataInd = i;
-  console.log(list[i]);
-}
 </script>
 
 <style>
@@ -71,12 +96,28 @@ for (let i = 0; i < list.length; i++) {
 }
 .img {
   width: 590px;
+  height: 470px;
+}
+.img img {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 0;
+  transition: all 0.5s;
+}
+.img img.active {
+  opacity: 1;
+  z-index: 1;
 }
 .pagination {
   position: absolute;
   left: 50%;
   bottom: 30px;
   transform: translateX(-50%);
+  z-index: 2;
   width: 100px;
 }
 .pagination ul {
@@ -87,8 +128,8 @@ for (let i = 0; i < list.length; i++) {
 }
 .pagination a {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border: 2px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
 }
@@ -98,6 +139,7 @@ for (let i = 0; i < list.length; i++) {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
   /* width: 50px; */
   padding: 30px 0;
   background: rgba(0, 0, 0, 0.5);
@@ -109,6 +151,11 @@ for (let i = 0; i < list.length; i++) {
 }
 .next {
   right: 0;
+}
+a.active {
+  border-color: #fff;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
 }
 body {
   margin: 0;
