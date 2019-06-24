@@ -63,12 +63,6 @@ export default {
   methods: {
     pagemove(index) {
       this.activeNum = index;
-      for (let i = 0; i < this.carouselImg.length; i++) {
-        this.carouselImg[i].show = false;
-        console.log(this.carouselImg[i].show);
-      }
-      this.carouselImg[index].show = true;
-      console.log(this.carouselImg[index].show);
     },
     handlePre() {
       if (this.activeNum === 0) {
