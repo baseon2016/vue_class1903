@@ -176,7 +176,6 @@ export default {
   props: ["text"]
 };
 ```
-
 写好后,text 就相当于子组件的一个数据
 
 - prop 可以设置默认值,直接在子组件内判断即可 例
