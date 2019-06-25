@@ -2,7 +2,7 @@
   <div>
     <Header/>
     <Main/>
-    <Button type="submit"/>
+    <Button/>
   </div>
 </template>
 

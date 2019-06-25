@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style>
+/* 样式标签添加scoped属性，这个样式标签内所有样式虽然是全局的但是所有选择器会添加一个属性选择器 */
+/* 类似.card[data-v-xxxxx] 每一个组件xxxxx都是不一样的 */
 .card {
   width: 340px;
   padding: 20px 20px;
@@ -55,7 +57,7 @@ export default {
   border-radius: 10px;
 }
 .card h3 {
-  font-size: 20px;
+  font-size: 18px;
   color: #000;
   font-weight: bold;
   max-width: 300px;
