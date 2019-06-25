@@ -11,7 +11,7 @@
         <slot></slot>
       </div>
       <div class="modal-bottom">
-        <button @click='$emit("cancel")' style="marginRight:20px">{{onCancel}}</button>
+        <button @click="$emit("cancel")" style="marginRight:20px">{{onCancel}}</button>
         <button @click="$emit('confirm')">{{onConfirm}}</button>
       </div>
     </div>
