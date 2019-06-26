@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="show">按钮</button>
-    <Button @show="show"/>
+    <Button @clickBtnFun="show"/>
     <Button/>
     <Modal
       title="对话框"
@@ -43,11 +43,9 @@ export default {
     },
     confirm() {
       console.log("已经确认，执行操作");
-      this.isShow = false;
     },
     cancel() {
       console.log("已经取消,不执行操作");
-      this.isShow = false;
     }
   }
 };

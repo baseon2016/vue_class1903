@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Card :cardArray="cardList"/>
+    <Card :cardArray="cardList" :selectNum="changeNum" @switchFun="switchImg"/>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
   },
   data() {
     return {
+      changeNum: 0,
       cardList: [
         {
           id: "card01",
@@ -39,6 +40,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    switchImg(num) {
+      this.changeNum = num;
+    }
   }
 };
 </script>

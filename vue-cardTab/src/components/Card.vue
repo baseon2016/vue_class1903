@@ -5,7 +5,7 @@
         v-for="(item,index) in cardArray"
         :class="{card:true,selected:index===selectNum}"
         :key="item.id"
-        @click="switchImg(index)"
+        @click="$emit('switchFun',index)"
       >
         <img :src="item.imgSrc">
         <h3>{{item.title}}</h3>
@@ -28,23 +28,27 @@
 <script>
 export default {
   name: "card",
-  data() {
-    return {
-      selectNum: 0
-    };
-  },
+  // data() {
+  //   return {
+  //     selectNum: 0
+  //   };
+  // },
   props: {
     cardArray: {
       type: Array,
       required: true
-    }
-  },
-  methods: {
-    switchImg(index) {
-      this.selectNum = index;
-      console.log(this.selectNum);
+    },
+    selectNum: {
+      type: Number,
+      required: true
     }
   }
+  // methods: {
+  //   switchImg(index) {
+  //     this.selectNum = index;
+  //     console.log(this.selectNum);
+  //   }
+  // }
 };
 </script>
 
@@ -53,12 +57,14 @@ export default {
 /* 类似.card[data-v-xxxxx] 每一个组件xxxxx都是不一样的 */
 .card,
 .cardShow {
-  width: 340px;
   padding: 20px 20px;
   text-align: left;
-  text-indent: 10px;
   border: 1px solid #000;
   transition: all 1s;
+}
+.card {
+  width: 340px;
+  text-indent: 10px;
 }
 .card img {
   display: block;

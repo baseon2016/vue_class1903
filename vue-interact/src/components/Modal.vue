@@ -11,16 +11,21 @@
         <slot></slot>
       </div>
       <div class="modal-bottom">
-        <button @click="$emit("cancel")" style="marginRight:20px">{{onCancel}}</button>
-        <button @click="$emit('confirm')">{{onConfirm}}</button>
+        <!-- <button @click="cancelFun" style="marginRight:20px">{{onCancel}}</button> -->
+        <Button @clickBtnFun="cancelFun" :text="onCancel"/>
+        <button @click="confirmFun">{{onConfirm}}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Button from "./Button";
 export default {
   name: "modal",
+  components: {
+    Button
+  },
   props: {
     title: {
       type: String,
@@ -40,8 +45,13 @@ export default {
     }
   },
   methods: {
-    maskClick() {
-      this.visible = false;
+    confirmFun() {
+      this.$emit("confirm");
+      this.$emit("disappear");
+    },
+    cancelFun() {
+      this.$emit("cancel");
+      this.$emit("disappear");
     }
   }
 };
