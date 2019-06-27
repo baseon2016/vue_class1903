@@ -1,7 +1,6 @@
 <template>
   <div class="commentForm">
-    <textarea cols="30" rows="10" v-model="textVal"></textarea>
-    <!-- <button @click="addComment">评论</button> -->
+    <textarea @keyup.enter="commentFun" cols="30" rows="10" v-model="textVal"></textarea>
     <Button @btnFun="commentFun" btnText="评论"/>
   </div>
 </template>
@@ -33,6 +32,10 @@ export default {
 </script>
 
 <style scoped>
+.commentForm {
+  width: 75%;
+  margin: 0 auto;
+}
 .commentForm textarea {
   resize: none;
 }

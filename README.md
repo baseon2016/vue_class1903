@@ -234,20 +234,51 @@ this.$emit("handleSignup");
 - 在子组件内使用<slot name='父组件内template标签v-slot的值'></slot>
 
 #### 组件之间的交互
-
+（爸爸控制儿子的变化使用，props属性。儿子自己控制自己的变化使用，data,methods属性。儿子控制爸爸的变化使用，自定义事件由爸爸传递给儿子。爸爸获取儿子的内部的value等值并不改变它，由自定义事件的传参传递）
 - 父组件和子组件的交互
-  - prop
-  - 组件自定义事件
+  - prop（改变子组件属性）
+  - 组件自定义事件（子组件使用父组件的事件）
   
 - 子组件和父组件之间的交互
-  子组件修改父组件的状态(data)，现在父组件内声明修改自己 data的方法，把方法传递给子组件即可
-  - prop
+  子组件修改父组件的状态(data)，先在父组件内声明修改自己 data的方法，把方法传递给子组件即可
   - 组件自定义事件
 
 - 兄弟组件之间的交互
+  - 将需要交互的data定义在共同的祖先内
+  - 兄弟组件的交互，转化为父与子，子与父的交互
+
 - vueX 终极解决方案
 
 #### 表单操作
+
+#### vue组件的计算属性computed
+当你有了一个data,但是使用的时候不是直接使用data数据，而是使用data数据的变形，此时需要定义一个computed,computed的用法和data一样
+```js
+computed: {
+    number() {
+      return this.comments.length;
+    },
+    commentsR() {
+      //reverse 方法会修改原数组，多次添加会顺序错乱
+      //复制原数组，在进行倒叙
+      // 复制对象的方法，js(obj.assign)  jq(.extends)
+      //es6扩展运算符([...array],{...obj})
+      return [...this.comments].reverse();
+    }
+  },
+```
+#### 插件使用
+- shortid 简短id,生成不重复的id
+- npm i shortid
+- import 引入
+- 使用
+
+#### vue组件的动画和过渡
+transition和 transition group
+
+#### vue 的路由
+vue 项目内的页面跳转,本身vue不带路由功能
+npm i vue-router
 
 #### 错误提示
 

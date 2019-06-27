@@ -18,6 +18,9 @@ export default {
 button {
   background-color: rgb(204, 123, 18);
   padding: 5px 10px;
+  border: 1px solid #222;
   border-radius: 8px;
+  outline: none;
+  cursor: pointer;
 }
 </style>
