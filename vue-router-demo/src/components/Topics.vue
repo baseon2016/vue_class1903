@@ -4,10 +4,9 @@
 
 <script>
 export default {
-
-}
+  name: "topics"
+};
 </script>
 
 <style>
-
 </style>

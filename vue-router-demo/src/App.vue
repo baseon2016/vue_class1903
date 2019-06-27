@@ -36,6 +36,9 @@ a {
 ul {
   list-style: none;
 }
+* {
+  box-sizing: border-box;
+}
 h1 {
   margin: 0 auto;
   width: 90%;

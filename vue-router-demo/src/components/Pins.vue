@@ -4,10 +4,9 @@
 
 <script>
 export default {
-
-}
+  name: "pins"
+};
 </script>
 
 <style>
-
 </style>
