@@ -234,25 +234,32 @@ this.$emit("handleSignup");
 - 在子组件内使用<slot name='父组件内template标签v-slot的值'></slot>
 
 #### 组件之间的交互
-（爸爸控制儿子的变化使用，props属性。儿子自己控制自己的变化使用，data,methods属性。儿子控制爸爸的变化使用，自定义事件由爸爸传递给儿子。爸爸获取儿子的内部的value等值并不改变它，由自定义事件的传参传递）
+
+（爸爸控制儿子的变化使用，props 属性。儿子自己控制自己的变化使用，data,methods 属性。儿子控制爸爸的变化使用，自定义事件由爸爸传递给儿子。爸爸获取儿子的内部的 value 等值并不改变它，由自定义事件的传参传递）
+
 - 父组件和子组件的交互
+
   - prop（改变子组件属性）
   - 组件自定义事件（子组件使用父组件的事件）
-  
+
 - 子组件和父组件之间的交互
-  子组件修改父组件的状态(data)，先在父组件内声明修改自己 data的方法，把方法传递给子组件即可
+  子组件修改父组件的状态(data)，先在父组件内声明修改自己 data 的方法，把方法传递给子组件即可
+
   - 组件自定义事件
 
 - 兄弟组件之间的交互
-  - 将需要交互的data定义在共同的祖先内
+
+  - 将需要交互的 data 定义在共同的祖先内
   - 兄弟组件的交互，转化为父与子，子与父的交互
 
 - vueX 终极解决方案
 
 #### 表单操作
 
-#### vue组件的计算属性computed
-当你有了一个data,但是使用的时候不是直接使用data数据，而是使用data数据的变形，此时需要定义一个computed,computed的用法和data一样
+#### vue 组件的计算属性 computed
+
+当你有了一个 data,但是使用的时候不是直接使用 data 数据，而是使用 data 数据的变形，此时需要定义一个 computed,computed 的用法和 data 一样
+
 ```js
 computed: {
     number() {
@@ -267,19 +274,62 @@ computed: {
     }
   },
 ```
+
 #### 插件使用
-- shortid 简短id,生成不重复的id
+
+- shortid 简短 id,生成不重复的 id
 - npm i shortid
 - import 引入
 - 使用
 
-#### vue组件的动画和过渡
-transition和 transition group
+#### vue 组件的动画和过渡
+
+transition 和 transition group
 
 #### vue 的路由
-vue 项目内的页面跳转,本身vue不带路由功能
-npm i vue-router
 
+- vue 项目内的页面跳转,本身 vue 不带路由功能,需要自己添加
+- 安装 vue 路由 `npm i vue-router`
+- 新建一个 src/router.js
+- 在 router.js 内给 vue 项目安装上路由功能
+
+```js
+import Vue from "vue";
+import VueRouter from "vue-router";
+Vue.use(VueRouter);
+```
+
+- 创建路由 `new VueRouter({routes:xxx,mode:xxx})`
+
+```js
+const routes = [
+  {
+    component: "组件名",
+    path: "/地址"
+  }
+];
+const router = new VueRouter({
+  routes,
+  mode: "history"
+});
+//导出路由
+export default router;
+```
+
+- 在项目 main.js 内导入路由并使用
+```js
+import router from './router.js'
+new Vue({
+  router
+})
+```
+- 在vue所有组件内都可以使用路由了
+```js
+<!-- 使用router-view标签展示路由 -->
+<router-view></router-view>
+<!-- 使用router-link标签实现跳转 -->
+<router-link to='路由页面的path'></router-link>
+```
 #### 错误提示
 
 - `<Dem> - did you register the component correctly?`

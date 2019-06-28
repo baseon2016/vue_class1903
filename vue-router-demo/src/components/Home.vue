@@ -1,5 +1,21 @@
 <template>
   <div class="home">
+    <ul class="list">
+      <li>
+        <router-link
+          to="/welcome/recommendend"
+          active-class="active-router"
+          :class="$route.path==='/'?'active-router':''"
+        >推荐</router-link>
+      </li>
+      <li>
+        <router-link to="/welcome/frontend" active-class="active-router">前端</router-link>
+      </li>
+      <li>
+        <router-link to="/welcome/backend" active-class="active-router">后端</router-link>
+      </li>
+    </ul>
+    <router-view></router-view>
     <div class="container">
       <div class="tabs">
         <div
@@ -76,8 +92,13 @@ export default {
   width: 90%;
   margin: 0 auto;
 }
+.home .list {
+  background-color: #ccc;
+  display: flex;
+  justify-content: space-between;
+}
 .home .container {
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
 .home .tabs {
@@ -86,11 +107,14 @@ export default {
   align-items: center;
   position: relative;
 }
+.home .tabs .tab {
+  max-width: 200px;
+}
 .home .tabs .line {
   height: 5px;
   background: rgba(187, 35, 8, 0.863);
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   transition: all 0.5s;
 }
 .home .tabs .tab.active {
@@ -101,6 +125,7 @@ export default {
   word-wrap: break-word;
 }
 .home .content {
+  width: 530px;
   margin-top: 20px;
   background-color: rgb(32, 133, 235);
   padding: 15px;
@@ -108,7 +133,8 @@ export default {
 }
 .home .content .content-inner {
   position: relative;
-  height: 307px;
+  width: 500px;
+  height: 253px;
 }
 .home .content img {
   display: block;
