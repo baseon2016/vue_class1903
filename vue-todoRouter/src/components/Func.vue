@@ -4,12 +4,18 @@
       <span>{{todoNum}} items left</span>
     </div>
     <div class="options">
-      <span :class="{selected:showItem==='all'?true:false}" @click="$emit('all')">All</span>
-      <span :class="{selected:showItem==='active'?true:false}" @click="$emit('active')">Active</span>
-      <span
-        :class="{selected:showItem==='complete'?true:false}"
-        @click="$emit('complete')"
-      >Completed</span>
+      <router-link to="/">
+        <span :class="{selected:showItem==='all'?true:false}" @click="$emit('all')">All</span>
+      </router-link>
+      <router-link to="/all">
+        <span :class="{selected:showItem==='active'?true:false}" @click="$emit('active')">Active</span>
+      </router-link>
+      <router-link to="/complete">
+        <span
+          :class="{selected:showItem==='complete'?true:false}"
+          @click="$emit('complete')"
+        >Completed</span>
+      </router-link>
     </div>
     <div class="clear">
       <span v-show="showClear" @click="$emit('clear')">Clear completed</span>

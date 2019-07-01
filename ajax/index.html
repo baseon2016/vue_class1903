@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ajax</title>
+  </head>
+  <body>
+    <span style="display: 'block'">等一会</span>
+    <h1 style="display: 'none'"></h1>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js
+    "></script>
+    <script>
+      //ajax AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
+      // 同步阻塞异步非阻塞
+      // 前端向后端获取数据的方式
+      // 一、原生Js的ajax 使用XMLHttpRequest对象
+      //网址xxx.xxx/ccc
+      // //1.创建XMLHttpRequest对象
+      // const XHR = new XMLHttpRequest();
+      // //2.使用创建好的XHR对象创建一个请求 open方法 .open('请求的方法','请求的地址')
+      // // 请求的方法：GET POST  (DELETE PUT PATCH)
+      // XHR.open("GET", "http://jsonplaceholder.typicode.com/users");
+      // // 3.将创建好的请求发出去，send() send方法可以附带数据，可以向后台发送数据
+      // XHR.send();
+      // // 4.使用XHR的 onreadystatechange 事件，监听请求的过程直到结束
+      // XHR.onreadystatechange = function() {
+      //   // 该事件可以检测到请求的状态和状态码， 以及请求成功的返回
+      //   // 请求的状态 XHR.readyState 1,2,3,4
+      //   // 请求的状态码 XHR.status  200-500
+      //   // 请求的返回是XHR.responseText
+      //   // 返回的数据是后台决定的，类型也是后台决定的
+      //   // 我们使用的免费数据，后台返回的是 json 字符串
+      //   // 我们就要将 json 字符串转化成对象， 使用JSON.parse(jason串) 转成对象
+      //   // JSON.stringify(对象)，把对象转化成 json串
+      //   // 状态为4，并且状态码是200 代表请求成功响应就绪
+      //   if (XHR.readyState === 4 && XHR.status === 200) {
+      //     console.log(XHR.responseText);
+      //     const obj = JSON.parse(XHR.responseText);
+      //     console.log(obj.forEach(element => element.name));
+      //     obj.forEach(element => document.write(element.name + "<br>"));
+      //   }
+      // };
+      // 二、jquery的 ajax  三种方法 $.ajax({})  $.get   $.post
+      // $.ajax({
+      //   url: "http://jsonplaceholder.typicode.com/users/1",
+      //   method: "GET",
+      //   success(res) {
+      //     // 请求成功之后
+      //     //res代表请求成功的响应 会自动将后台返回的 json 串转化为对象
+      //     $("span").css("display", "none");
+      //     $("h1")
+      //       .text(res.name)
+      //       .css("display", "block");
+      //   }
+      // });
+      // $.get({
+      //   url: "http://jsonplaceholder.typicode.com/users/1",
+      //   success(res) {
+      //     // 请求成功之后
+      //     //res代表请求成功的响应 会自动将后台返回的 json 串转化为对象
+      //     $("span").css("display", "none");
+      //     $("h1")
+      //       .text(res.name)
+      //       .css("display", "block");
+      //   }
+      // });
+      // get 请求和 post请求方法的区别
+      $.ajax({
+        url: "https://cnodejs.org/api/v1/accesstoken",
+        method: "POST",
+        data: {
+          accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
+        },
+        success(res) {
+          console.log(res);
+        }
+      });
+      // axios 工具实现ajax请求
+      //axios在html内的用法
+    </script>
+  </body>
+</html>

@@ -10,11 +10,10 @@
         class="todoInput"
       >
     </div>
-
-    <ul>
+    <router-view></router-view>
+    <!-- <ul v-for="item in todoListR" :key="item.id">
       <li
-        v-for="item in todoListR"
-        :key="item.id"
+        v-show="showItem==='all'?true:showItem==='complete'?item.complete===true:item.complete===false"
         @mouseenter="item.showDel=true"
         @mouseleave="item.showDel=false"
       >
@@ -25,15 +24,15 @@
         <span :class="{content:true,selected:item.complete===true}">{{item.content}}</span>
         <span class="del" @click="del(item.id)" v-show="item.showDel">X</span>
       </li>
-    </ul>
+    </ul>-->
     <Func
       v-show="todoList.length!=0"
       :todoNum="todoNum"
       :showItem="showItem"
       :showClear="showClear"
-      @all="showItem='all'"
-      @active="showItem='active'"
-      @complete="showItem='complete'"
+      @all="all"
+      @active="active"
+      @complete="complete"
       @clear="clear"
     />
   </div>
@@ -56,16 +55,7 @@ export default {
   },
   computed: {
     todoListR() {
-      const newTodo = [...this.todoList]
-        .reverse()
-        .filter(element =>
-          this.showItem === "all"
-            ? true
-            : this.showItem === "active"
-            ? element.complete === false
-            : element.complete === true
-        );
-      return newTodo;
+      return [...this.todoList].reverse();
     },
     todoNum() {
       const num = this.todoList.filter(element => element.complete === false);
@@ -86,6 +76,7 @@ export default {
         };
         this.todoList.push(newItem);
         this.todoVal = "";
+        console.log(this.todoList);
       } else {
         alert("请输入有效内容");
       }
@@ -99,6 +90,15 @@ export default {
     },
     del(id) {
       this.todoList = this.todoList.filter(element => element.id != id);
+    },
+    all() {
+      this.showItem = "all";
+    },
+    complete() {
+      this.showItem = "complete";
+    },
+    active() {
+      this.showItem = "active";
     },
     clear() {
       this.todoList = this.todoList.filter(
