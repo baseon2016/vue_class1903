@@ -11,6 +11,7 @@
     <h1 style="display: 'none'"></h1>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js
     "></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       //ajax AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）
       // 同步阻塞异步非阻塞
@@ -67,18 +68,136 @@
       //   }
       // });
       // get 请求和 post请求方法的区别
-      $.ajax({
-        url: "https://cnodejs.org/api/v1/accesstoken",
-        method: "POST",
-        data: {
-          accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
-        },
-        success(res) {
-          console.log(res);
-        }
-      });
+      // $.ajax({
+      //   url: "https://cnodejs.org/api/v1/accesstoken",
+      //   method: "POST",
+      //   data: {
+      //     accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
+      //   },
+      //   success(res) {
+      //     console.log(res);
+      //   }
+      // });
       // axios 工具实现ajax请求
       //axios在html内的用法
+      // get请求传参都是写到地址的？后
+
+      // axios
+      //   .get("http://jsonplaceholder.typicode.com/users/1")
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err));
+
+      // .get("https://cnodejs.org/api/v1/topics?limit=2&tab=ask&page=1")
+      // axios
+      //   .get("https://cnodejs.org/api/v1/topics", {
+      //     params: {
+      //       limit: 2,
+      //       tab: "ask",
+      //       page: 1,
+      //       mdrender: "false"
+      //     }
+      //   })
+      //   .then(res => console.log(res.data.data));
+
+      // axios
+      //   .post("https://cnodejs.org/api/v1/accesstoken", {
+      //     accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
+      //   })
+      //   .then(res => console.log(res))
+      //   .catch(err => console.log(err));
+
+      // fetch
+      // fetch("https://cnodejs.org/api/v1/topics")
+      //   .then(response => response.json())
+      //   .then(res => console.log(res));
+      // fetch("https://cnodejs.org/api/v1/accesstoken", {
+      //   method: "post",
+      //   // 前后台数据交互是json类型 所以body传递内容需要写成json格式
+      //   //但是前提能传递json，必须设置请求头 headers
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
+      //   })
+      // })
+      //   .then(response => response.json())
+      //   .then(res => console.log(res));
+
+      // Promise  异步解决方案
+      // resolve 成功的函数  reject 失败的函数
+
+      // const promise = new Promise(function(resolve, reject) {
+      //   console.log("执行异步操作");
+      //   setTimeout(() => {
+      //     console.log("异步操作执行完毕");
+      //     resolve();
+      //   }, 1000);
+      // });
+      // promise.then(res => {
+      //   console.log("异步成功之后我要做的事情");
+      // });
+
+      // 将原生的ajax用Promise封装
+      // const myAjax = new Promise((resolve, reject) => {
+      //   const XHR = new XMLHttpRequest();
+      //   XHR.open("GET", "http://jsonplaceholder.typicode.com/users");
+      //   XHR.send();
+      //   XHR.onreadystatechange = function() {
+      //     if (XHR.readyState === 4 && XHR.status === 200) {
+      //       const obj = JSON.parse(XHR.responseText);
+      //       resolve(obj);
+      //     }
+      //   };
+      // });
+      // myAjax.then(res => console.log(res));
+
+      // Promise.all([promise1,promise2,...]).then(resolve函数)
+      // resolve函数会在前面多个promise执行完毕之后再执行
+      // Promise.all([
+      //   axios.get("http://jsonplaceholder.typicode.com/users/1"),
+      //   axios.post("https://cnodejs.org/api/v1/accesstoken", {
+      //     accesstoken: "bdc313e3-f115-4e71-b74d-61db185170c5"
+      //   })
+      // ]).then(res => console.log(res));
+
+      // 我们以后的工作都是 首先后台数据都是泡在服务器上的，也要保证你的前端页面也是泡在服务器上的，去实现服务器和服务器之间的交互
+      // axios.get("http://localhost:1100/posts").then(res => {
+      //   console.log(res.data);
+      //   $("span").css("display", "none");
+      //   $("h1")
+      //     .text(res.data)
+      //     .css("display", "block");
+      // });
+      // 从localhost:5000 去localhost:1100 请求数据 就会遇到跨域问题
+      // axios
+      //   .post("http://localhost:1100/posts", {
+      //     title: "测试Post",
+      //     user: {
+      //       username: "碍事法师",
+      //       useraddress: "发生发放"
+      //     }
+      //   })
+      //   .then(res => console.log(res));
+
+      // axios
+      //   .delete("http://localhost:1100/posts/TYVYERi")
+      //   .then(res => console.log(res));
+      // axios
+      //   .patch("http://localhost:1100/posts/2345", {
+      //     title: "patch方法，局部更新即可"
+      //   })
+      //   .then(res => console.log(res.data));
+
+      // axios
+      //   .put("http://localhost:1100/posts/-eat57r", {
+      //     title: "测试Post put方法整体替换",
+      //     user: {
+      //       username: "碍事法师 put方法整体替换",
+      //       useraddress: "发生发放 put方法整体替换"
+      //     }
+      //   })
+      //   .then(res => console.log(res.data));
     </script>
   </body>
 </html>

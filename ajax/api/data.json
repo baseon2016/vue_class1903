@@ -1,0 +1,20 @@
+{
+  "posts": [
+    {
+      "id": "2345",
+      "title": "patch方法，局部更新即可",
+      "user": {
+        "username": "阿佛和",
+        "useraddress": "及法律框架房"
+      }
+    },
+    {
+      "title": "测试Post put方法整体替换",
+      "user": {
+        "username": "碍事法师 put方法整体替换",
+        "useraddress": "发生发放 put方法整体替换"
+      },
+      "id": "-eat57r"
+    }
+  ]
+}
