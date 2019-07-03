@@ -5,13 +5,16 @@
         <img src="https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg" />
       </h1>
       <div class="nav">
-        <router-link to="/">
+        <router-link
+          to="/"
+          :class="{'active-router':$route.path==='/'||$route.path.indexOf('welcome')!=-1}"
+        >
           <h3>首页</h3>
         </router-link>
-        <router-link to="/pins">
+        <router-link to="/pins" active-class="active-router">
           <h3>沸点</h3>
         </router-link>
-        <router-link to="/talks">
+        <router-link to="/talks" active-class="active-router">
           <h3>话题</h3>
         </router-link>
       </div>
@@ -33,6 +36,7 @@ body {
   margin: 0;
 }
 a {
+  color: #000;
   text-decoration: none;
 }
 ul {
@@ -51,9 +55,13 @@ ul {
   align-items: center;
 }
 .header .nav {
+  background-color: #ccc;
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.active-router {
+  color: cyan;
 }
 </style>

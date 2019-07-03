@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Topics from "./components/Topics";
+import Home from "./components/Home";
 import Pins from "./components/Pins";
 import Talks from "./components/Talks";
+import Post from "./components/Post.vue";
 Vue.use(VueRouter);
 const routes = [
   {
-    component: Topics,
+    component: Home,
     path: "/"
   },
   {
@@ -16,6 +17,10 @@ const routes = [
   {
     component: Talks,
     path: "/talks"
+  },
+  {
+    component: Post,
+    path: "/post/:id"
   }
 ];
 const router = new VueRouter({

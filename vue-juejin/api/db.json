@@ -4,19 +4,31 @@
       "id": "001",
       "title": "Flutter 完整开发实战详解（十六、详解自定义布局实战）",
       "likeNum": 1234,
-      "commentNum": 5678
+      "commentNum": 5678,
+      "popular": true,
+      "newest": false,
+      "hottest": false,
+      "content": "<div class=\"markdown-text\"><h2>简介</h2>\n<p><strong>TNW: TypeScript(The) + Node.js(Next) + WeChat 微信公众号开发脚手架，支持 http 模块扩展、支持任何 Node.js 的服务端框架(Express、Nest、Egg 等)</strong></p>\n<h2>已完成</h2>\n<ul>\n<li>多公众号支持</li>\n<li>各种消息交互</li>\n<li>自定义菜单</li>\n<li>模板消息</li>\n<li>客服消息</li>\n<li>用户管理</li>\n<li>生带参数的二维码</li>\n<li>长连接转短连接</li>\n<li>微信网页授权</li>\n<li>一次性订阅消息</li>\n<li>素材管理</li>\n<li>群发消息</li>\n<li>数据统计</li>\n<li>微信卡券</li>\n<li>微信门店</li>\n<li>微信摇一摇</li>\n<li>微信支付</li>\n</ul>\n<h2>安装与运行</h2>\n<h3>NPM 依赖方式</h3>\n<p>1、下载</p>\n<pre class=\"prettyprint\"><code>$ npm init -y\n$ npm i tnw\n</code></pre><p>2、完整示例</p>\n<ul>\n<li><a href=\"https://gitee.com/Javen205/TNW/tree/master/example/js\">Gitee 请点击这里</a></li>\n<li><a href=\"https://github.com/Javen205/TNW/tree/master/example/js\">Github 请点击这里</a></li>\n</ul>\n<h3>源码方式</h3>\n<p>1、下载项目并安装依赖</p>\n<pre class=\"prettyprint\"><code>$ git clone https:&#x2F;&#x2F;github.com&#x2F;Javen205&#x2F;TNW.git\n或者\n$ git clone https:&#x2F;&#x2F;gitee.com&#x2F;Javen205&#x2F;TNW.git\n$ cd TNW\n$ npm install\n</code></pre><p>2、编译并运行</p>\n<pre class=\"prettyprint\"><code>$ npm run build\n$ npm run dev\n</code></pre><p>3、完整示例</p>\n<ul>\n<li><a href=\"https://gitee.com/Javen205/TNW/tree/master/src/example\">Gitee 请点击这里</a></li>\n<li><a href=\"https://github.com/Javen205/TNW/tree/master/src/example\">GitHub 请点击这里</a></li>\n</ul>\n<p>4、 Nest 示例</p>\n<ul>\n<li><a href=\"https://gitee.com/Javen205/TNW/tree/master/example/nest\">Gitee 请点击这里</a></li>\n<li><a href=\"https://github.com/Javen205/TNW/tree/master/example/nest\">GitHub 请点击这里</a></li>\n</ul>\n<h2>开发进度</h2>\n<p><a href=\"https://github.com/Javen205/TNW/wiki/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6\">点击这里</a></p>\n<h2>交流群</h2>\n<p>群号:<a href> 114196246</a></p>\n<h2>欢迎贡献代码</h2>\n</div>"
     },
     {
       "id": "002",
       "title": "作为一个前端工程师也要掌握的几种文件路径知识",
       "likeNum": 1234,
-      "commentNum": 5678
+      "commentNum": 5678,
+      "popular": false,
+      "newest": true,
+      "hottest": false,
+      "content": "之前在做webpack配置时候多次用到路径相关内容，最近在写项目的时候，有一个文件需要上传到阿里云oss的功能，同时本地服务器也需要保留一个文件备份。多次用到了文件路径相关内容以及Node核心API的path模块，所以系统的学习了一下，整理了这篇文章。"
     },
     {
       "id": "003",
       "title": "8 个有用的 JS 技巧",
       "likeNum": 1234,
-      "commentNum": 5678
+      "commentNum": 5678,
+      "popular": false,
+      "newest": false,
+      "hottest": true,
+      "content": "<div class=\"markdown-text\"><p>最近开始着手使用 Rust 从零开始编写一个 JavaScript 引擎，目的就是将自己的 JavaScript level 提升到 “熟练”。初版的定位是可以跑通 ES5 的版本，并且尽可能多的跑过 test262 测试。</p>\n<p>目前已经完成了 Parser 部分，下一步考虑加入简单实现的 GC，并完成解释器的部分，最后就是跑 test262 测试。大概会在初版完成后写一个系列来记录并介绍如何从零开始编写 JavaScript 引擎。欢迎沟通交流指教 😀</p>\n<p><a href=\"https://github.com/hsiaosiyuan0/naive\">https://github.com/hsiaosiyuan0/naive</a></p>\n</div>"
     }
   ]
 }

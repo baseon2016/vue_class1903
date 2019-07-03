@@ -2,11 +2,11 @@
   <div class="topics">
     <img v-if="!topics.length" src="http://img.lanrentuku.com/img/allimg/1212/5-121204193R0-50.gif" />
     <ul v-else>
-      <li v-for="item in topics" :key="item.id">
+      <router-link v-for="item in topics" :key="item.id" :to="`/post/${item.id}`">
         <p>{{item.title}}</p>
         <span>likes:{{item.likeNum}}</span>
         <span>comment:{{item.commentNum}}</span>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -21,18 +21,15 @@
 // 5.beforeUpdate 组件更新 data 前
 // 6.updated 组件更新data完毕
 // 7.destroyed 组件被销毁
-import axios from "axios";
+
 export default {
   name: "topics",
-  data() {
-    return {
-      topics: []
-    };
-  },
-  created() {
-    axios
-      .get("http://localhost:1100/topics")
-      .then(res => (this.topics = res.data));
+
+  props: {
+    topics: {
+      type: Array,
+      required: true
+    }
   }
 };
 </script>
