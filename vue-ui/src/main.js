@@ -1,8 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
-import { Button, Carousel, CarouselItem } from "element-ui";
+import { Pagination, Button, Carousel, CarouselItem } from "element-ui";
 import "./assets/element-variables.scss";
 import router from "./router";
+
+Vue.use(Pagination);
 Vue.use(Button);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
