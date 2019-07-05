@@ -1,15 +1,19 @@
 <template>
   <div class="post">
-    <ul>
+    <div v-if="!commentsShow.length">
+      <img src="http://img.lanrentuku.com/img/allimg/1212/5-121204193934-51.gif" />
+    </div>
+    <ul v-else>
       <li v-for="item in commentsShow" :key="item.id">{{item.comment+item.id}}</li>
-      <el-pagination
-        :background="true"
-        layout="prev, pager, next"
-        :total="comments.length"
-        :page-size="limitNum"
-        @current-change="changePage"
-      ></el-pagination>
     </ul>
+    <el-pagination
+      :background="true"
+      layout="prev, pager, next"
+      :total="comments.length"
+      :page-size="limitNum"
+      :page-count="5"
+      @current-change="changePage"
+    ></el-pagination>
   </div>
 </template>
 
@@ -20,7 +24,7 @@ export default {
   name: "post",
   data() {
     return {
-      limitNum: 20,
+      limitNum: 10,
       pageIndex: 1,
       comments: [],
       commentsShow: []
@@ -45,26 +49,31 @@ export default {
         `http://localhost:3008/comments?_limit=${this.limitNum}&_page=${this.pageIndex}`
       )
       .then(res => {
-        this.commentsShow = res.data;
+        setTimeout(() => {
+          this.commentsShow = res.data;
+        }, 1000);
       });
   },
-  updated() {
-    axios
-      .get(
-        `http://localhost:3008/comments?_limit=${this.limitNum}&_page=${this.pageIndex}`
-      )
-      .then(res => {
-        this.commentsShow = res.data;
-      });
-  },
+
   methods: {
     changePage(currentPage) {
+      this.commentsShow = [];
       this.pageIndex = currentPage;
-      console.log(this.pageIndex);
+      this.$router.push(`/?page=${currentPage}`);
+
+      axios
+        .get(
+          `http://localhost:3008/comments?_limit=${this.limitNum}&_page=${this.pageIndex}`
+        )
+        .then(res => {
+          setTimeout(() => {
+            this.commentsShow = res.data;
+          }, 1000);
+        });
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>
