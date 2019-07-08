@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+import "./assets/global.css";
 import "./cube-ui";
 import router from "./router";
 Vue.config.productionTip = false;

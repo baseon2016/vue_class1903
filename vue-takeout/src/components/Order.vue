@@ -1,133 +1,109 @@
 <template>
-  <div>
+  <div class="order">
     <cube-scroll-nav
+      v-if="goods.length"
+      class="container"
       :side="true"
-      :data="data"
+      :data="goods"
       :current="current"
-      @change="changeHandler"
-      @sticky-change="stickyChangeHandler"
     >
       <!-- <ul class="prepend-header" slot="prepend">
         <li>11</li>
         <li>22</li>
         <li>333</li>
       </ul>-->
-      <div class="scroll-list-wrap">
-        <cube-scroll
-          ref="scroll"
-          :data="data"
-          :options="options"
-          @pulling-down="onPullingDown"
-          @pulling-up="onPullingUp"
-        >
-          <cube-scroll-nav-panel
-            v-for="item in data"
-            :key="item.name"
-            :label="item.name"
-            :title="item.name"
-          >
-            <ul>
-              <li v-for="food in item.foods" :key="food.id" class="food-item">
-                <div>
-                  <img :src="food.icon" />
-                  <p>{{food.name}}</p>
-                </div>
-              </li>
-            </ul>
-          </cube-scroll-nav-panel>
-        </cube-scroll>
-      </div>
+      <cube-scroll-nav-panel
+        v-for="item in goods"
+        :key="item.id"
+        :label="item.name"
+        :title="item.name"
+      >
+        <ul>
+          <li v-for="food in item.foods" :key="food.id" class="food-item">
+            <div>
+              <img :src="food.icon" />
+              <p>{{food.name}}</p>
+            </div>
+            <div>
+              <button class="delCart">-</button>
+              <span class="qty">0</span>
+              <button @click="addCart(food)" class="addCart">+</button>
+            </div>
+          </li>
+        </ul>
+      </cube-scroll-nav-panel>
     </cube-scroll-nav>
+    <Cart :cartItems="cartItems" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Cart from "./Cart";
 export default {
   name: "order",
-  // components: {
-  //   CubePage
-  // },
+  components: {
+    Cart
+  },
   data() {
     return {
-      data: [],
-      limitNum: 1,
-      current: "",
-      options: {
-        scrollbar: true,
-        startY: 0,
-        pullDownRefresh: {
-          threshold: 70,
-          stop: 50,
-          txt: "更新成功"
-        },
-        pullUpLoad: {
-          threshold: 70
-        }
-      }
+      goods: [],
+      cartItems: [],
+      current: "热销榜"
     };
   },
   methods: {
-    changeHandler(label) {
-      console.log("changed to:", label);
-      this.current = label;
-    },
-    stickyChangeHandler(current) {
-      console.log("sticky-change", current);
-      this.current = current;
-    },
-    onPullingDown() {
-      this.limitNum++;
-      axios
-        .get(`http://localhost:3000/goods?_limit=${this.limitNum}`)
-        .then(res => {
-          setTimeout(() => {
-            if (res.data.length >= this.limitNum) {
-              // 如果有新数据
-              this.data = res.data;
-            } else {
-              // 如果没有新数据，强制刷新结束
-              this.$refs.scroll.forceUpdate();
-            }
-          }, 1000);
-        });
-    },
-    onPullingUp() {
-      this.limitNum++;
-      axios
-        .get(`http://localhost:3000/goods?_limit=${this.limitNum}`)
-        .then(res => {
-          setTimeout(() => {
-            if (res.data.length >= this.limitNum) {
-              // 如果有新数据
-              this.data = res.data;
-            } else {
-              // 如果没有新数据，强制刷新结束
-              this.$refs.scroll.forceUpdate();
-            }
-          }, 1000);
-        });
+    addCart(food) {
+      if (this.cartItems.find(element => element.id === food.id)) {
+        // 买过了
+        axios
+          .patch(`http://localhost:3000/carts/${food.id}`, {
+            num: this.cartItems.find(element => element.id === food.id).num + 1
+          })
+          .then(res => {
+            this.cartItems.find(element => element.id === food.id).num =
+              res.data.num;
+            console.log(res.data);
+          });
+      } else {
+        // 没买过
+        axios
+          .post("http://localhost:3000/carts", { ...food, num: 1 })
+          .then(res => {
+            console.log(res.data);
+            this.cartItems.push(res.data);
+          });
+      }
     }
   },
   created() {
-    axios
-      .get(`http://localhost:3000/goods?_limit=${this.limitNum}`)
-      .then(res => {
-        this.data = res.data;
-        this.current = res.data[0].name;
-      });
+    axios.get("http://localhost:3000/goods").then(res => {
+      this.goods = res.data;
+      this.current = res.data[0].name;
+    });
+    axios.delete("http://localhost:3000/carts").then(res => {
+      this.cartItems = res.data;
+      console.log(res);
+    });
   }
 };
 </script>
 
-<style scoped>
-.scroll-list-wrap {
-  height: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+<style>
+.cube-scroll-nav-panel-title {
+  font-size: 20px;
+  background-color: #fff;
+  margin: 0;
+  line-height: 1.8;
 }
-.scroll-list-wrap .food-item {
-  padding: 15px 0;
-  border-bottom: 1px solid #000;
+.order {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cube-scroll-nav {
+  flex-grow: 1;
+  height: 500px;
 }
 </style>
