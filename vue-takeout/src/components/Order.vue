@@ -25,15 +25,22 @@
               <p>{{food.name}}</p>
             </div>
             <div>
-              <button class="delCart">-</button>
-              <span class="qty">0</span>
+              <button
+                v-if="cartItems.find(element=>element.id===food.id)"
+                @click="delCart(food)"
+                class="delCart"
+              >-</button>
+              <span
+                v-if="cartItems.find(element=>element.id===food.id)"
+                class="qty"
+              >{{cartItems.find(element=>element.id===food.id).num}}</span>
               <button @click="addCart(food)" class="addCart">+</button>
             </div>
           </li>
         </ul>
       </cube-scroll-nav-panel>
     </cube-scroll-nav>
-    <Cart :cartItems="cartItems" />
+    <Cart :cartItems="cartItems" :delCart="delCart" :addCart="addCart" :clearCart="clearCart" />
   </div>
 </template>
 
@@ -63,17 +70,44 @@ export default {
           .then(res => {
             this.cartItems.find(element => element.id === food.id).num =
               res.data.num;
-            console.log(res.data);
           });
       } else {
         // 没买过
         axios
           .post("http://localhost:3000/carts", { ...food, num: 1 })
           .then(res => {
-            console.log(res.data);
             this.cartItems.push(res.data);
           });
       }
+    },
+    delCart(food, closeCart) {
+      if (this.cartItems.find(element => element.id === food.id).num - 1 <= 0) {
+        axios.delete(`http://localhost:3000/carts/${food.id}`).then(res => {
+          const index = this.cartItems.filter(element => element.id != food.id);
+          this.cartItems = index;
+          if (closeCart && this.cartItems.length === 0) {
+            closeCart();
+          }
+        });
+      } else {
+        axios
+          .patch(`http://localhost:3000/carts/${food.id}`, {
+            num: this.cartItems.find(element => element.id === food.id).num - 1
+          })
+          .then(res => {
+            this.cartItems.find(element => element.id === food.id).num =
+              res.data.num;
+          });
+      }
+    },
+    clearCart(closeCart) {
+      const arr = this.cartItems.map(ele =>
+        axios.delete(`http://localhost:3000/carts/${ele.id}`)
+      );
+      Promise.all(arr).then(res => {
+        this.cartItems = [];
+        closeCart();
+      });
     }
   },
   created() {
@@ -81,7 +115,7 @@ export default {
       this.goods = res.data;
       this.current = res.data[0].name;
     });
-    axios.delete("http://localhost:3000/carts").then(res => {
+    axios.get("http://localhost:3000/carts").then(res => {
       this.cartItems = res.data;
       console.log(res);
     });

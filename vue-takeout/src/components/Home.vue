@@ -62,7 +62,7 @@ export default {
   left: 50%;
   top: -75px;
   transform: translateX(-50%);
-  z-index: 9;
+  z-index: 1;
 }
 .title .logo img {
   display: block;
