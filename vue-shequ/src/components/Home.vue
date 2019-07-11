@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home panel">
     <div class="topic-main">
       <ul class="nav">
         <li>
@@ -79,7 +79,7 @@ export default {
   watch: {
     "$route.fullPath": {
       immediate: true,
-      handler(newValue, oldValue) {
+      handler() {
         const tab = this.$route.query.tab || "all";
         this.topics = [];
         axios
@@ -100,15 +100,6 @@ export default {
 </script>
 
 <style>
-.home {
-  margin-top: 10px;
-}
-.topic-main {
-  width: 65vw;
-  background-color: #fff;
-  border-radius: 5px;
-  overflow: hidden;
-}
 .home .nav {
   display: flex;
   justify-content: flex-start;
@@ -131,7 +122,7 @@ export default {
   padding: 3px 4px;
   border-radius: 3px;
 }
-.topic-main .topics .tab {
+.tab {
   background-color: #e5e5e5;
   color: #999;
   padding: 2px 4px;
@@ -141,7 +132,7 @@ export default {
   -o-border-radius: 3px;
   font-size: 12px;
 }
-.topic-main .topics .tab.active {
+.tab.active {
   background: #369219;
   color: #fff;
 }

@@ -25,4 +25,11 @@ export default {
   width: 90%;
   margin: 0 auto;
 }
+.panel {
+  width: 65vw;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 0;
+}
 </style>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import "./assets/global.css";
+import "./assets/iconfont/iconfont.css";
 import router from "./router";
 Vue.config.productionTip = false;
 //将App组件内的虚拟的dom结构，渲染为真实的dom结构，并挂载到#app这个元素上
