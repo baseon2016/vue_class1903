@@ -11,7 +11,11 @@
               >{{topic.top?'置顶':topic.good?'精华':''}}</span>
               <span class="title">{{topic.title}}</span>
             </div>
-            <span v-if="sessionStorage.getItem('token')" class="collect">加入收藏</span>
+            <span
+              v-if="loggedin"
+              @click="userCollect"
+              :class="isCollected?'decollect collect':'collect'"
+            >{{isCollected?'取消收藏':'加入收藏'}}</span>
           </div>
           <p class="changes">
             <span>
@@ -35,11 +39,15 @@
         <div class="article-content" v-html="topic.content">{{topic.content}}</div>
       </article>
       <div class="topic-reply panel">
-        <div class="reply-head">
-          <span>{{topic.reply_count}} 回复</span>
+        <div class="panel-head">
+          <span class="panel-head-title">{{topic.reply_count}} 回复</span>
         </div>
         <ul>
-          <li v-for="(item,index) in topic.replies" :key="item.id" class="reply-item">
+          <li
+            v-for="(item,index) in topic.replies"
+            :key="item.id"
+            :class="{'reply-item':true,'reply-highlight':item.ups.length>=2}"
+          >
             <div class="reply-author">
               <img :src="item.author.avatar_url" />
               <div class="user-info">
@@ -49,16 +57,33 @@
               <div class="user-action">
                 <span
                   @click="userUp(item,index)"
-                  :class="{'iconfont':true,'icondianzan':true,'up-btn':true,}"
+                  class="iconfont icondianzan up-btn"
                 >{{item.ups.length?item.ups.length:''}}</span>
                 <span class="iconfont iconreply reply-btn"></span>
               </div>
             </div>
-            <p class="reply-content" v-html="item.content">{{item.content}}</p>
+            <div class="reply-content" v-html="item.content">{{item.content}}</div>
+            <!-- <div class="post-reply panel">
+              <div class="panel-head">
+                <span class="panel-head-title">添加回复</span>
+              </div>
+              <div class="postarea">
+                <textarea @keyup.enter="reReply" cols="10" rows="3" v-model="postText"></textarea>
+                <button class="submit" @click="reReply(item.id)">回复</button>
+              </div>
+            </div>-->
           </li>
         </ul>
       </div>
-      <div class="post-reply"></div>
+      <div class="post-reply panel">
+        <div class="panel-head">
+          <span class="panel-head-title">添加回复</span>
+        </div>
+        <div class="postarea">
+          <textarea @keyup.enter="postReply" cols="10" rows="3" v-model="reText"></textarea>
+          <button class="submit" @click="postReply">回复</button>
+        </div>
+      </div>
     </div>
     <div v-else>
       <img
@@ -76,13 +101,40 @@ export default {
   name: "topic",
   data() {
     return {
-      topic: null
+      topic: null,
+      isCollected: false,
+      postText: "",
+      reText: ""
     };
+  },
+  computed: {
+    loggedin() {
+      return localStorage.getItem("token");
+    }
   },
   methods: {
     moment(time) {
       moment.locale("zh-cn");
       return moment(time).fromNow();
+    },
+    userCollect() {
+      const obj = {
+        accesstoken: localStorage.getItem("token"),
+        topic_id: this.topic.id
+      };
+      if (this.isCollected) {
+        axios
+          .post("https://www.vue-js.com/api/v1/topic/de_collect", obj)
+          .then(res => {
+            this.isCollected = false;
+          });
+      } else {
+        axios
+          .post("https://www.vue-js.com/api/v1/topic/collect", obj)
+          .then(res => {
+            this.isCollected = true;
+          });
+      }
     },
     userUp(item, index) {
       axios
@@ -100,7 +152,52 @@ export default {
               this.topic = res.data.data;
             });
         });
+    },
+    postReply() {
+      if (this.postText.trim()) {
+        axios
+          .post(
+            `https://www.vue-js.com/api/v1/topic/${this.topic.id}/replies`,
+            {
+              accesstoken: localStorage.getItem("token"),
+              content: this.postText
+            }
+          )
+          .then(res => {
+            this.postText = "";
+            axios
+              .get(`https://www.vue-js.com/api/v1/topic/${this.topic.id}`)
+              .then(res => {
+                this.topic = res.data.data;
+              });
+          });
+      } else {
+        alert("填写内容不能为空");
+      }
     }
+    // reReply(id) {
+    //   if (this.postText.trim()) {
+    //     axios
+    //       .post(
+    //         `https://www.vue-js.com/api/v1/topic/${this.topic.id}/replies`,
+    //         {
+    //           accesstoken: localStorage.getItem("token"),
+    //           content: this.reText,
+    //           reply_id: id
+    //         }
+    //       )
+    //       .then(res => {
+    //         this.reText = "";
+    //         axios
+    //           .get(`https://www.vue-js.com/api/v1/topic/${this.topic.id}`)
+    //           .then(res => {
+    //             this.topic = res.data.data;
+    //           });
+    //       });
+    //   } else {
+    //     alert("填写内容不能为空");
+    //   }
+    // }
   },
   created() {
     axios
@@ -145,19 +242,37 @@ export default {
   color: #fff;
   background-color: #369219;
   flex-grow: 0;
-  text-align: right;
 }
 .article-head-title .collect:hover {
   background-color: #6ba44e;
+}
+.article-head-title .decollect {
+  background-color: #e5e5e5;
+}
+.article-head-title .decollect:hover {
+  background-color: #909090;
+  color: #fff;
 }
 .topic .article-head .changes {
   font-size: 12px;
   color: #838383;
   margin: 0;
 }
-.topic-reply .reply-head {
+.topic .article-content {
   padding: 10px;
-  background-color: #f6f6f6;
+  margin: 0 10px;
+}
+
+.topic-reply .reply-item {
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  font-size: 14px;
+}
+.topic-reply .reply-item.reply-highlight {
+  background-color: #f4fcf0;
 }
 .topic-reply .reply-item:hover .up-btn {
   opacity: 0.4;
@@ -209,5 +324,44 @@ export default {
 }
 .user-action .up-btn.active {
   opacity: 1;
+}
+.topic-reply .reply-item .reply-content {
+  padding-left: 50px;
+  color: #333;
+}
+.post-reply .postarea {
+  position: relative;
+}
+.post-reply textarea {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  outline: 0;
+  overflow: auto;
+  font-size: 20px;
+  line-height: 2;
+  resize: none;
+}
+.post-reply .submit {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 0;
+  margin: 0;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  letter-spacing: 2px;
+  box-shadow: none;
+  border-radius: 3px;
+  line-height: 2em;
+  color: #fff;
+  background-color: #3374de;
+  position: absolute;
+  left: 2%;
+  bottom: 15%;
+}
+.post-reply .submit:hover {
+  color: #fff;
+  background-color: #05c;
 }
 </style>

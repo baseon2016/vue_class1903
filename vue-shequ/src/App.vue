@@ -32,4 +32,11 @@ export default {
   overflow: hidden;
   margin: 10px 0;
 }
+.panel .panel-head {
+  padding: 10px;
+  background-color: #f6f6f6;
+}
+.panel .panel-head .panel-head-title {
+  color: #1c6132;
+}
 </style>
