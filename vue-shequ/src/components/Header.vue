@@ -36,6 +36,7 @@
           <router-link to="/" :style="{color:'#fff'}">登录</router-link>
         </li>-->
       </ul>
+      <router-link to="/topic/create" class="postTitle">发布话题</router-link>
       <div v-if="!userinfo" class="login">
         <input type="text" v-model="usertoken" />
         <button @click="login">登录</button>
@@ -74,8 +75,10 @@ export default {
           accesstoken: this.usertoken
         })
         .then(res => {
+          console.log(res.data);
           this.userinfo = res.data;
           localStorage.setItem("token", this.usertoken);
+          localStorage.setItem("userId", res.data.id);
         });
     },
     logout() {

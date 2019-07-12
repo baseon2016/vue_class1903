@@ -56,22 +56,30 @@
               </div>
               <div class="user-action">
                 <span
-                  @click="userUp(item,index)"
-                  class="iconfont icondianzan up-btn"
+                  @click="userUp(item)"
+                  :class="{'iconfont':true,'icondianzan':true,'up-btn':true,'active':isUped(item)}"
                 >{{item.ups.length?item.ups.length:''}}</span>
-                <span class="iconfont iconreply reply-btn"></span>
+                <span v-if="loggedin" @click="showreply(item)" class="iconfont iconreply reply-btn"></span>
               </div>
             </div>
             <div class="reply-content" v-html="item.content">{{item.content}}</div>
-            <!-- <div class="post-reply panel">
+            <div v-if="reReply.find(ele=>ele.index===item.id)" class="post-reply panel">
               <div class="panel-head">
-                <span class="panel-head-title">添加回复</span>
+                <span class="panel-head-title">回复他（她）</span>
               </div>
               <div class="postarea">
-                <textarea @keyup.enter="reReply" cols="10" rows="3" v-model="postText"></textarea>
-                <button class="submit" @click="reReply(item.id)">回复</button>
+                <textarea
+                  @keyup.enter="replytoReply(item,reReply.find(ele=>ele.index===item.id))"
+                  cols="10"
+                  rows="3"
+                  v-model="reReply.find(ele=>ele.index===item.id).text"
+                ></textarea>
+                <button
+                  class="submit"
+                  @click="replytoReply(item,reReply.find(ele=>ele.index===item.id))"
+                >回复</button>
               </div>
-            </div>-->
+            </div>
           </li>
         </ul>
       </div>
@@ -80,7 +88,7 @@
           <span class="panel-head-title">添加回复</span>
         </div>
         <div class="postarea">
-          <textarea @keyup.enter="postReply" cols="10" rows="3" v-model="reText"></textarea>
+          <textarea @keyup.enter="postReply" cols="10" rows="3" v-model="postText"></textarea>
           <button class="submit" @click="postReply">回复</button>
         </div>
       </div>
@@ -104,7 +112,7 @@ export default {
       topic: null,
       isCollected: false,
       postText: "",
-      reText: ""
+      reReply: []
     };
   },
   computed: {
@@ -113,6 +121,14 @@ export default {
     }
   },
   methods: {
+    isUped(item) {
+      return item.ups.indexOf(localStorage.getItem("userId")) != -1;
+    },
+    findreReplyTxt(ele, item) {
+      if (ele.index === item.id) {
+        return ele.text;
+      }
+    },
     moment(time) {
       moment.locale("zh-cn");
       return moment(time).fromNow();
@@ -136,22 +152,29 @@ export default {
           });
       }
     },
-    userUp(item, index) {
-      axios
-        .post(`https://www.vue-js.com/api/v1/reply/${item.id}/ups`, {
-          accesstoken: localStorage.getItem("token")
-        })
-        .then(res => {
-          if (res.data.action === "up") {
-            console.log(document.querySelectorAll("reply-item"));
-          } else {
-          }
-          axios
-            .get(`https://www.vue-js.com/api/v1/topic/${this.$route.params.id}`)
-            .then(res => {
-              this.topic = res.data.data;
-            });
-        });
+    userUp(item) {
+      if (localStorage.getItem("token")) {
+        axios
+          .post(`https://www.vue-js.com/api/v1/reply/${item.id}/ups`, {
+            accesstoken: localStorage.getItem("token")
+          })
+          .then(res => {
+            if (res.data.action === "up") {
+              item.ups.push(localStorage.getItem("userId"));
+            } else {
+              item.ups = item.ups.filter(
+                ele => ele != localStorage.getItem("userId")
+              );
+            }
+          });
+      }
+    },
+    showreply(item) {
+      const newReply = {
+        index: item.id,
+        text: `@${item.author.loginname} `
+      };
+      this.reReply.push(newReply);
     },
     postReply() {
       if (this.postText.trim()) {
@@ -174,30 +197,30 @@ export default {
       } else {
         alert("填写内容不能为空");
       }
+    },
+    replytoReply(item, objReply) {
+      if (objReply.text.trim()) {
+        axios
+          .post(
+            `https://www.vue-js.com/api/v1/topic/${this.topic.id}/replies`,
+            {
+              accesstoken: localStorage.getItem("token"),
+              content: objReply.text,
+              reply_id: item.id
+            }
+          )
+          .then(res => {
+            this.reReply = this.reReply.filter(ele => ele.index != item.id);
+            axios
+              .get(`https://www.vue-js.com/api/v1/topic/${this.topic.id}`)
+              .then(res => {
+                this.topic = res.data.data;
+              });
+          });
+      } else {
+        alert("填写内容不能为空");
+      }
     }
-    // reReply(id) {
-    //   if (this.postText.trim()) {
-    //     axios
-    //       .post(
-    //         `https://www.vue-js.com/api/v1/topic/${this.topic.id}/replies`,
-    //         {
-    //           accesstoken: localStorage.getItem("token"),
-    //           content: this.reText,
-    //           reply_id: id
-    //         }
-    //       )
-    //       .then(res => {
-    //         this.reText = "";
-    //         axios
-    //           .get(`https://www.vue-js.com/api/v1/topic/${this.topic.id}`)
-    //           .then(res => {
-    //             this.topic = res.data.data;
-    //           });
-    //       });
-    //   } else {
-    //     alert("填写内容不能为空");
-    //   }
-    // }
   },
   created() {
     axios
@@ -314,13 +337,13 @@ export default {
   text-align: right;
   flex-grow: 1;
 }
-.user-action .up-btn,
 .user-action .reply-btn {
   opacity: 0.4;
   cursor: pointer;
 }
 .user-action .up-btn {
   opacity: 0;
+  cursor: pointer;
 }
 .user-action .up-btn.active {
   opacity: 1;
