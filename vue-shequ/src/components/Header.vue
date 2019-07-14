@@ -36,7 +36,8 @@
           <router-link to="/" :style="{color:'#fff'}">登录</router-link>
         </li>-->
       </ul>
-      <router-link to="/topic/create" class="postTitle">发布话题</router-link>
+      <router-link v-if="loggedin" to="/my/messages" class="mymessages">未读消息</router-link>
+      <router-link v-if="loggedin" to="/topic/create" class="postTitle">发布话题</router-link>
       <div v-if="!userinfo" class="login">
         <input type="text" v-model="usertoken" />
         <button @click="login">登录</button>
@@ -70,6 +71,7 @@ export default {
   },
   methods: {
     login() {
+      this.$router.push("/");
       axios
         .post("https://www.vue-js.com/api/v1/accesstoken", {
           accesstoken: this.usertoken
@@ -82,8 +84,14 @@ export default {
         });
     },
     logout() {
+      this.$router.push("/");
       this.userinfo = null;
       localStorage.removeItem("token");
+    }
+  },
+  computed: {
+    loggedin() {
+      return localStorage.getItem("token");
     }
   },
   created() {

@@ -22,6 +22,20 @@ input {
   outline: 0;
   border: 0;
 }
+input,
+select,
+textarea {
+  display: inline-block;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
 .markdown-text > :first-child,
 .preview > :first-child {
   margin-top: 0;
@@ -69,6 +83,10 @@ input {
   margin: 10px 0;
 }
 .panel .panel-head {
+  padding: 10px;
+  background-color: #f6f6f6;
+}
+.panel .panel-foot {
   padding: 10px;
   background-color: #f6f6f6;
 }

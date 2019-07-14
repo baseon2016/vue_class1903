@@ -48,7 +48,7 @@
       <div class="topics">
         <ul class="topics-list" v-if="topics.length">
           <li v-for="item in topics" :key="item.id">
-            <router-link :to="`/user/${item.author_id}`" class="author-avatar">
+            <router-link :to="`/user/${item.author.loginname}`" class="author-avatar">
               <img :src="item.author.avatar_url" />
             </router-link>
             <div class="reply-count">
@@ -127,7 +127,8 @@ export default {
   },
   created() {
     axios.get("https://www.vue-js.com/api/v1/topics").then(res => {
-      console.log(res.data);
+      console.log(res.data.data);
+
       this.topics = res.data.data;
     });
   }

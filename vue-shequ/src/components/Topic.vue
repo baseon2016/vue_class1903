@@ -365,7 +365,7 @@ export default {
   line-height: 2;
   resize: none;
 }
-.post-reply .submit {
+.submit {
   display: inline-block;
   padding: 3px 10px;
   border: 0;
@@ -381,9 +381,9 @@ export default {
   background-color: #3374de;
   position: absolute;
   left: 2%;
-  bottom: 15%;
+  bottom: 5%;
 }
-.post-reply .submit:hover {
+.submit:hover {
   color: #fff;
   background-color: #05c;
 }
