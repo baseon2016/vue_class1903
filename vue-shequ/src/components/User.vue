@@ -99,6 +99,26 @@ export default {
       return moment(time).fromNow();
     }
   },
+  watch: {
+    "$route.fullPath": {
+      immediate: true,
+      handler() {
+        axios
+          .get(
+            `https://www.vue-js.com/api/v1/user/${this.$route.params.loginname}`
+          )
+          .then(res => {
+            console.log(res.data.data);
+            this.userImg = res.data.data.avatar_url;
+            this.score = res.data.data.score;
+            this.collectTopics = res.data.data.collect_topics;
+            this.createUser_at = res.data.data.create_at;
+            this.recentTopics = res.data.data.recent_topics;
+            this.recentReplies = res.data.data.recent_replies;
+          });
+      }
+    }
+  },
   created() {
     axios
       .get(`https://www.vue-js.com/api/v1/user/${this.$route.params.loginname}`)

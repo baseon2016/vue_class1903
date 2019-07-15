@@ -2,7 +2,7 @@
   <div class="header">
     <div class="container">
       <h1 class="logo">
-        <router-link to="/" :style="{color:'#fff'}">
+        <router-link to="/vue-shequ/" :style="{color:'#fff'}">
           <img src="https://www.vue-js.com/public/images/vue.png" />
           Vue.js
         </router-link>
@@ -12,7 +12,7 @@
       </div>
       <ul class="navigation">
         <li>
-          <router-link to="/" :style="{color:'#fff'}">Home</router-link>
+          <router-link to="/vue-shequ/" :style="{color:'#fff'}">Home</router-link>
         </li>
         <li>
           <router-link to="/" :style="{color:'#fff'}">微信公众号</router-link>
@@ -32,12 +32,11 @@
         <li>
           <router-link to="/" :style="{color:'#fff'}">注册</router-link>
         </li>
-        <!-- <li>
-          <router-link to="/" :style="{color:'#fff'}">登录</router-link>
-        </li>-->
       </ul>
-      <router-link v-if="loggedin" to="/my/messages" class="mymessages">未读消息</router-link>
-      <router-link v-if="loggedin" to="/topic/create" class="postTitle">发布话题</router-link>
+      <router-link v-if="userinfo" to="/vue-shequ/my/messages" class="mymessages">
+        <span v-if="newMessages" class="message-count">{{newMessages}}</span> 未读消息
+      </router-link>
+      <router-link v-if="userinfo" to="/vue-shequ/topic/create" class="postTitle">发布话题</router-link>
       <div v-if="!userinfo" class="login">
         <input type="text" v-model="usertoken" />
         <button @click="login">登录</button>
@@ -66,12 +65,13 @@ export default {
   data() {
     return {
       usertoken: "8f8bbbad-f0ff-4f15-8f5f-750f4d34aba0",
-      userinfo: null
+      userinfo: null,
+      newMessages: null
     };
   },
   methods: {
     login() {
-      this.$router.push("/");
+      this.$router.push("/vue-shqu/");
       axios
         .post("https://www.vue-js.com/api/v1/accesstoken", {
           accesstoken: this.usertoken
@@ -81,6 +81,16 @@ export default {
           this.userinfo = res.data;
           localStorage.setItem("token", this.usertoken);
           localStorage.setItem("userId", res.data.id);
+          axios
+            .get("https://www.vue-js.com/api/v1/message/count", {
+              params: {
+                accesstoken: localStorage.getItem("token")
+              }
+            })
+            .then(res => {
+              console.log(res.data);
+              this.newMessages = res.data.data;
+            });
         });
     },
     logout() {
@@ -89,11 +99,11 @@ export default {
       localStorage.removeItem("token");
     }
   },
-  computed: {
-    loggedin() {
-      return localStorage.getItem("token");
-    }
-  },
+  // computed: {
+  //   loggedin() {
+  //     return localStorage.getItem("token");
+  //   }
+  // },
   created() {
     if (localStorage.getItem("token")) {
       axios
@@ -102,6 +112,16 @@ export default {
         })
         .then(res => {
           this.userinfo = res.data;
+          axios
+            .get("https://www.vue-js.com/api/v1/message/count", {
+              params: {
+                accesstoken: localStorage.getItem("token")
+              }
+            })
+            .then(res => {
+              console.log(res.data);
+              this.newMessages = res.data.data;
+            });
         });
     }
   }
@@ -182,5 +202,15 @@ export default {
 .logout button,
 .login button {
   align-self: flex-end;
+}
+.mymessages span.message-count {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  padding: 1px 5px;
+  background-color: #369219;
+  color: #fff;
+  margin-right: 0.5em;
 }
 </style>

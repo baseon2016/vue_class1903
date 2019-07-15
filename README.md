@@ -330,6 +330,11 @@ new Vue({
 <!-- 使用router-link标签实现跳转 -->
 <router-link to='路由页面的path'></router-link>
 ```
+#### vue 项目部署 
+- 先确保本地的 localhost:8080 下的项目能正常运行
+- 在项目下打开命令行 `npm run build`,把你做好的项目打包到项目下的dist文件夹下
+  
+
 #### 错误提示
 
 - `<Dem> - did you register the component correctly?`

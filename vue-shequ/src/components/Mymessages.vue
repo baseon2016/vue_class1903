@@ -3,7 +3,10 @@
     <div v-if="aaa" class="mymessages">
       <div class="panel">
         <div class="panel-head">
-          <span class="panel-head-title push-home">主页</span>
+          <router-link to="/">
+            <span class="panel-head-title push-home">主页</span>
+          </router-link>
+
           <span class="divider">/</span>
           <span class="new-messages">新消息</span>
         </div>
@@ -11,9 +14,14 @@
           <ul v-if="hasNotReadMessages.length">
             <li v-for="item in hasNotReadMessages" :key="item.id" class="message">
               <div class="message-info">
-                <router-link :to="`/user/${item.author.loginname}`">{{item.author.loginname}}</router-link>在话题
-                <router-link :to="`/topic/${item.topic.id}`">{{item.topic.title}}</router-link>中@了你
+                <router-link :to="`/user/${item.author.loginname}`">{{item.author.loginname}}</router-link>
+                <span>{{item.type==='at'?' 在话题 ':' 回复了你的话题 '}}</span>
+                <router-link :to="`/topic/${item.topic.id}`">{{item.topic.title}}</router-link>
+                <span>{{item.type==='at'?" 中@了你":''}}</span>
               </div>
+              <span class="unread">
+                <img src="https://www.vue-js.com/public/images/checkmark_icon&16.png" />
+              </span>
             </li>
           </ul>
           <div class="message" v-else>
@@ -29,8 +37,10 @@
           <ul v-if="hasReadMessages.length">
             <li v-for="item in hasReadMessages" :key="item.id" class="message">
               <div class="message-info">
-                <router-link :to="`/user/${item.author.loginname}`">{{item.author.loginname}}</router-link>在话题
-                <router-link :to="`/topic/${item.topic.id}`">{{item.topic.title}}</router-link>中@了你
+                <router-link :to="`/user/${item.author.loginname}`">{{item.author.loginname}}</router-link>
+                <span>{{item.type==='at'?' 在话题 ':' 回复了你的话题 '}}</span>
+                <router-link :to="`/topic/${item.topic.id}`">{{item.topic.title}}</router-link>
+                <span>{{item.type==='at'?" 中@了你":''}}</span>
               </div>
               <span class="marked-icon">
                 <img src="https://www.vue-js.com/public/images/checkmark_icon&16.png" />
@@ -93,5 +103,10 @@ export default {
 }
 .message .marked-icon {
   flex-shrink: 0;
+}
+.message .unread {
+  flex-shrink: 0;
+  opacity: 0.1;
+  cursor: pointer;
 }
 </style>
