@@ -18,6 +18,9 @@ export const store = new Vuex.Store({
     },
     addComment(state, newComment) {
       state.comments.push(newComment);
+    },
+    delComment(state, id) {
+      state.comments = state.comments.filter(item => item.id != id);
     }
   },
   // actions 函数用来提交mutations 函数 为什么使用actions提交
@@ -42,6 +45,12 @@ export const store = new Vuex.Store({
           context.commit("addComment", res.data);
           payload.clear();
         });
+    },
+    delComment(context, id) {
+      axios.delete(`http://localhost:3008/comments/${id}`).then(res => {
+        console.log(res.data);
+        context.commit("delComment", id);
+      });
     }
   }
 });
