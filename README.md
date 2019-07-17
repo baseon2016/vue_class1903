@@ -317,24 +317,62 @@ export default router;
 ```
 
 - 在项目 main.js 内导入路由并使用
+
 ```js
-import router from './router.js'
+import router from "./router.js";
 new Vue({
   router
-})
+});
 ```
-- 在vue所有组件内都可以使用路由了
+
+- 在 vue 所有组件内都可以使用路由了
+
 ```js
 <!-- 使用router-view标签展示路由 -->
 <router-view></router-view>
 <!-- 使用router-link标签实现跳转 -->
 <router-link to='路由页面的path'></router-link>
 ```
-#### vue 项目部署 
-- 先确保本地的 localhost:8080 下的项目能正常运行
-- 在项目下打开命令行 `npm run build`,把你做好的项目打包到项目下的dist文件夹下
-  
 
+#### vue 项目部署
+
+- 先确保本地的 localhost:8080 下的项目能正常运行
+- 在项目下打开命令行 `npm run build`,把你做好的项目打包到项目下的 dist 文件夹下
+
+#### Vuex
+
+- 状态管理模式 ---> 状态共享到 store,通过 store 共享给其他组件,组件也可以直接修改共享状态
+
+如何创建 store
+
+- 安装 vuex `npm i vuex`
+- 在项目下的 src 文件夹下创建一个 store.js 内部写
+
+```js
+import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
+const store = new Vuex.store({
+  //state是该项目共享数据的地方
+  state: { xxx: xxxxx },
+  // mutations内部写的都是函数 该函数的作用是修改 state的方法，而且该函数只能接受两个参数 第一个参数是state也就是上面定义好的共享数据，第二个参数是载荷数据(payload),指的是修改state需要的其他参数
+  mutations: { xxx() {} }
+});
+export default store;
+```
+
+- 进入到项目下的 main.js 文件内,导入 store,并且在 new Vue 中添加一条属性叫 store 值为你导入 store
+
+组件中使用 store
+
+- 直接使用\$store.state 获取共享的数据即可
+- 一般 store 内的数据需要 computed 使用
+
+组件内动态修改 store
+
+- 直接使用\$store.commit 方法去触发创建好的 mutations 函数 `$store.commit('changeCount')`
+  - 修改store的时候可能需要传递参数。如何传递 `$store.commit('changeCount',1000)`
+  - 注意传递的参数只能1个，需要传递多个，把多个参数合并成对象传递
 #### 错误提示
 
 - `<Dem> - did you register the component correctly?`
