@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     postComment() {
-      return this.$store.state.comments;
+      return this.$store.getters.currentComments
     }
   },
   methods: {

@@ -343,6 +343,24 @@ new Vue({
 
 - 状态管理模式 ---> 状态共享到 store,通过 store 共享给其他组件,组件也可以直接修改共享状态
 
+#### vuex 流程 关键字
+##### state 属性
+存放公共状态属性 `$store.state`
+##### mutations属性
+存储修改 state 的方法对象
+- mutation 函数可以接受两个参数 1.state 2.payload
+- 而且该函数必须是同步函数
+- 通过store 的commit 方法调用mutations 函数
+##### actions属性
+存储异步操作函数的对象,修改state时需要发送请求,由于mutations不能使用异步函数，所以有了actions
+- actions 函数可以接受两个参数 1.context 2.payload
+- 而且该函数必须是异步函数,如果没有异步操作不需要写action函数
+- 通过store 的 dispatch 方法调用 actions 函数
+##### getters 属性
+store的计算属性 `$store.getters`
+- getters 函数内可以接收两个参数 1.state 2.getters(store内的其他getters)
+- 用法和写法与组件内的 computed 一样
+
 如何创建 store
 
 - 安装 vuex `npm i vuex`
@@ -373,6 +391,8 @@ export default store;
 - 直接使用\$store.commit 方法去触发创建好的 mutations 函数 `$store.commit('changeCount')`
   - 修改store的时候可能需要传递参数。如何传递 `$store.commit('changeCount',1000)`
   - 注意传递的参数只能1个，需要传递多个，把多个参数合并成对象传递
+
+
 #### 错误提示
 
 - `<Dem> - did you register the component correctly?`

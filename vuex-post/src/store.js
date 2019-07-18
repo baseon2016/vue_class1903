@@ -52,6 +52,12 @@ export const store = new Vuex.Store({
         context.commit("delComment", id);
       });
     }
+  },
+  // store的计算属性并不是组件内的 data的计算属性 功能一样
+  getters: {
+    currentComments(state) {
+      return [...state.comments].reverse();
+    }
   }
 });
 //修改
