@@ -4,7 +4,7 @@ import axios from "axios";
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
-    products: [],
+    products: null,
     cart: null
   },
   mutations: {
@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     getCart(state, payload) {
       state.cart = payload;
     },
-    addCart(state, payload) {
+    changeCart(state, payload) {
       state.cart = payload;
     },
     addCartQty(state, payload) {
@@ -39,18 +39,34 @@ const store = new Vuex.Store({
           qtyById: { ...context.state.cart.qtyById, [payload]: 1 }
         })
         .then(res => {
-          context.commit("addCart", res.data);
-          console.log(res.data);
+          context.commit("changeCart", res.data);
         });
     },
-    addCartQty(context, payload) {
+    changeCartQty(context, payload) {
       const newobj = { ...context.state.cart.qtyById };
-      newobj[payload]++;
+      if (payload.foo === "add") {
+        newobj[payload.id]++;
+      } else {
+        newobj[payload.id]--;
+        if (newobj[payload.id] <= 0) {
+          const newCartById = context.state.cart.productById.filter(
+            ele => ele != payload.id
+          );
+          delete newobj[payload.id];
+          axios
+            .patch("http://localhost:3008/cart", {
+              qtyById: newobj,
+              productById: newCartById
+            })
+            .then(res => context.commit("changeCart", res.data));
+          return;
+        }
+      }
       axios
         .patch("http://localhost:3008/cart", {
           qtyById: newobj
         })
-        .then(res => context.commit("addCart", res.data));
+        .then(res => context.commit("changeCart", res.data));
     }
   },
   getters: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul v-if="productCart&&products">
+    <ul v-if="products&&productCart">
       <li v-for="item in products" :key="item.id">
         名称:
         <span>{{item.title}}</span>--
@@ -9,9 +9,9 @@
         库存:
         <span>{{item.inventory}}</span>
         <button
-          :disabled="productCart.find(ele => ele.id === id).qty >=
-        products.find(ele => ele.id === id).inventory?true:false"
-          @click="addCart(item.id)"
+          :disabled="productCart.every(ele => ele.id != item.id)?false:productCart.find(ele => ele.id === item.id).qty >=
+        products.find(ele => ele.id === item.id).inventory?true:false"
+          @click="changeCart(item.id,'add')"
         >添加到购物车</button>
       </li>
     </ul>
@@ -30,11 +30,11 @@ export default {
     }
   },
   methods: {
-    addCart(id) {
+    changeCart(id, foo) {
       if (this.$store.getters.productCart.every(ele => ele.id != id)) {
         this.$store.dispatch("addCart", id);
       } else {
-        this.$store.dispatch("addCartQty", id);
+        this.$store.dispatch("changeCartQty", { id, foo });
       }
     }
   }

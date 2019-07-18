@@ -8,7 +8,15 @@
           <span>{{item.title}}</span>--
           价格:
           <span>{{item.price}}</span>x
-          <span>{{item.qty}}</span>
+          <span>
+            <button @click="changeCart(item.id,'del')">-</button>
+            {{item.qty}}
+            <button
+              :disabled="productCart.every(ele => ele.id != item.id)?false:productCart.find(ele => ele.id === item.id).qty >=
+        products.find(ele => ele.id === item.id).inventory?true:false"
+              @click="changeCart(item.id,'add')"
+            >+</button>
+          </span>
         </li>
       </ul>
       <span>Total:￥</span>
@@ -26,8 +34,19 @@
 export default {
   name: "cart",
   computed: {
+    products() {
+      return this.$store.state.products;
+    },
     productCart() {
       return this.$store.getters.productCart;
+    }
+  },
+  methods: {
+    changeCart(id, foo) {
+      this.$store.dispatch("changeCartQty", { id, foo });
+    },
+    delCart(id) {
+      console.log(id);
     }
   }
 };
