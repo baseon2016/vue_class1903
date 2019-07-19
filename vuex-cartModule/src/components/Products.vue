@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapMutations,mapActions } from "vuex";
 export default {
   name: "products",
   // computed: {
@@ -35,22 +35,24 @@ export default {
 
   computed: {
     ...mapState({
-      // products: state => state.products
+      products: state => state.products.products
       // 下面简写两种
-      products: "products"
+      // products: "products"
       // 不传递对象，改为数组...mapState(['products'])
     }),
     //后面补充组件自己的计算属性
-    productCart() {
-      return this.$store.getters.productCart;
-    }
+    ...mapGetters({
+      productCart: "productCart"
+    })
   },
   methods: {
+    ...mapActions(['addCart','changeCartQty']),
+
     changeCart(id, foo) {
       if (this.$store.getters.productCart.every(ele => ele.id != id)) {
-        this.$store.dispatch("addCart", id);
+      this.addCart(id)
       } else {
-        this.$store.dispatch("changeCartQty", { id, foo });
+        this.changeCartQty(id,foo)
       }
     }
   }

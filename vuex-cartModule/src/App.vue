@@ -17,6 +17,7 @@ export default {
     Cart
   },
   created() {
+    console.log(this.$store);
     this.$store.dispatch("getProducts");
     this.$store.dispatch("getCart");
   }

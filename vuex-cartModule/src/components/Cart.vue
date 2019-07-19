@@ -27,22 +27,21 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "cart",
   computed: {
-    products() {
-      return this.$store.state.products;
-    },
-    productCart() {
-      return this.$store.getters.productCart;
-    },
-    total() {
-      return this.$store.getters.total.toFixed(2);
-    }
+    ...mapState({
+      products: state => state.products.products
+    }),
+
+    ...mapGetters(["productCart", "total"])
   },
   methods: {
+    ...mapActions(["changeCartQty"]),
+
     changeCart(id, foo) {
-      this.$store.dispatch("changeCartQty", { id, foo });
+      this.changeCartQty(id, foo);
     }
   }
 };

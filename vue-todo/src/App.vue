@@ -86,6 +86,7 @@ export default {
         };
         this.todoList.push(newItem);
         this.todoVal = "";
+        console.log(this.todoList)
       } else {
         alert("请输入有效内容");
       }

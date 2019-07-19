@@ -358,7 +358,7 @@ new Vue({
 - 通过store 的 dispatch 方法调用 actions 函数
 ##### getters 属性
 store的计算属性 `$store.getters`
-- getters 函数内可以接收两个参数 1.state 2.getters(store内的其他getters)
+- getters 函数内可以接收两个参数 1.state(自己模块的state) 2.getters(store内的其他getters) 3.rootState(根目录state)
 - 用法和写法与组件内的 computed 一样
 
 如何创建 store
