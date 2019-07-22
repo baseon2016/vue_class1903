@@ -5,22 +5,19 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     todoList: [],
-    showItem: "all"
+    showItem: "all",
+    todoVal: ""
   },
   mutations: {
     getTodoList(state, payload) {
       state.todoList = payload;
-      state.todoList.forEach(ele => (ele.showDel = false));
+
     },
     addTodoList(state, payload) {
       state.todoList.push(payload);
+      state.todoVal = "";
     },
-    showDel(state, payload) {
-      state.todoList.find(ele => ele.id === payload.id).showDel = true;
-    },
-    hideDel(state, payload) {
-      state.todoList.find(ele => ele.id === payload.id).showDel = false;
-    },
+ 
     del(state, payload) {
       state.todoList = state.todoList.filter(ele => ele.id != payload);
     },
@@ -29,14 +26,12 @@ const store = new Vuex.Store({
         ele => ele.id === payload
       ).complete = !state.todoList.find(ele => ele.id === payload).complete;
     },
-    all(state) {
-      state.showItem = "all";
+
+    change(state, payload) {
+      state.showItem = payload;
     },
-    active(state) {
-      state.showItem = "active";
-    },
-    complete(state) {
-      state.showItem = "complete";
+    changeVal(state, newVal) {
+      state.todoVal = newVal;
     }
   },
   actions: {
@@ -46,9 +41,11 @@ const store = new Vuex.Store({
       });
     },
     addTodoList(context, payload) {
-      axios.post("http://localhost:3008/todolist", payload).then(res => {
-        context.commit("addTodoList", res.data);
-      });
+      axios
+        .post("http://localhost:3008/todolist", payload.newItem)
+        .then(res => {
+          context.commit("addTodoList", res.data);
+        });
     },
     del(context, payload) {
       axios.delete(`http://localhost:3008/todolist/${payload}`).then(res => {
@@ -66,6 +63,41 @@ const store = new Vuex.Store({
           console.log(res.data);
           context.commit("toggleComplete", payload);
         });
+    },
+    completeAllToggle(context) {
+      if (context.state.todoList.every(ele => ele.complete === true)) {
+        const todos = context.state.todoList.map(element => {
+          const todo = { ...element };
+          todo.complete = false;
+          return todo;
+        });
+        axios.put("http://localhost:3008/todolist", todos).then(res => {
+          console.log(res.data);
+        });
+      } else {
+        const todos = context.state.todoList.map(element => {
+          const todo = { ...element };
+          todo.complete = false;
+          return todo;
+        });
+        axios.put("http://localhost:3008/todolist", todos).then(res => {
+          console.log(res.data);
+        });
+      }
+    }
+  },
+  getters: {
+    todoListR(state) {
+      const newTodo = [...state.todoList]
+        .reverse()
+        .filter(element =>
+          state.showItem === "all"
+            ? true
+            : state.showItem === "active"
+            ? element.complete === false
+            : element.complete === true
+        );
+      return newTodo;
     }
   }
 });

@@ -6,15 +6,15 @@
     <div class="options">
       <span
         :class="{selected:$store.state.showItem==='all'?true:false}"
-        @click="$store.commit('all')"
+        @click="$store.commit('change','all')"
       >All</span>
       <span
         :class="{selected:$store.state.showItem==='active'?true:false}"
-        @click="$store.commit('active')"
+        @click="$store.commit('change','active')"
       >Active</span>
       <span
         :class="{selected:$store.state.showItem==='complete'?true:false}"
-        @click="$store.commit('complete')"
+        @click="$store.commit('change','complete')"
       >Completed</span>
     </div>
     <div class="clear">

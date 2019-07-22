@@ -1,28 +1,16 @@
 {
   "todolist": [
     {
-      "id": "shortId",
+      "complete": true,
+      "content": "124",
+      "showDel": false,
+      "id": 8
+    },
+    {
       "complete": false,
-      "content": "xxxxxx",
-      "showDel": false
-    },
-    {
-      "complete": true,
-      "content": "12344",
-      "showDel": true,
-      "id": "s2TAqU6"
-    },
-    {
-      "complete": true,
-      "content": "43dfgf",
+      "content": "235",
       "showDel": false,
-      "id": "iHf2oTX"
-    },
-    {
-      "complete": true,
-      "content": "123",
-      "showDel": false,
-      "id": "RmNs0vZ"
+      "id": 9
     }
   ]
 }

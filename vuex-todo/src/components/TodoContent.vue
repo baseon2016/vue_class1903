@@ -1,15 +1,10 @@
 <template>
   <div>
     <ul v-if="todoListR">
-      <li
-        v-for="item in todoListR"
-        :key="item.id"
-        @mouseenter="$store.commit('showDel',item)"
-        @mouseleave="$store.commit('hideDel',item)"
-      >
+      <li v-for="item in todoListR" :key="item.id">
         <span :class="{select:true,selected:item.complete===true}" @click="toggleComplete(item.id)"></span>
         <span :class="{content:true,selected:item.complete===true}">{{item.content}}</span>
-        <span class="del" @click="del(item.id)" v-show="item.showDel">X</span>
+        <span class="del" @click="del(item.id)">X</span>
       </li>
     </ul>
     <div v-else>请添加待办事项</div>
@@ -17,29 +12,14 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "todocontent",
   computed: {
-    todoListR() {
-      const newTodo = [...this.$store.state.todoList]
-        .reverse()
-        .filter(element =>
-          this.$store.state.showItem === "all"
-            ? true
-            : this.$store.state.showItem === "active"
-            ? element.complete === false
-            : element.complete === true
-        );
-      return newTodo;
-    }
+    ...mapGetters(["todoListR"])
   },
   methods: {
-    del(id) {
-      this.$store.dispatch("del", id);
-    },
-    toggleComplete(id) {
-      this.$store.dispatch("toggleComplete", id);
-    }
+    ...mapActions(["del", "toggleComplete"])
   },
   created() {
     this.$store.dispatch("getTodoList");
@@ -54,6 +34,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.todo li .del {
+  display: none;
+}
+.todo li:hover .del {
+  display: block;
 }
 .todo .select {
   display: block;

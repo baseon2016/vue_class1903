@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <span class="completeAll" @click="completeAllToggle">全选</span> -->
+    <span class="completeAll" @click="completeAllToggle">全选</span>
     <input
       @keyup.enter="submit"
       type="text"
@@ -12,15 +12,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "todohead",
-  data() {
-    return {
-      todoVal: ""
-    };
+  computed: {
+    todoVal: {
+      get() {
+        return this.$store.state.todoVal;
+      },
+      set(newVal) {
+        this.$store.commit("changeVal", newVal);
+      }
+    }
   },
-
   methods: {
+    ...mapActions(["addTodoList", "completeAllToggle"]),
     submit() {
       if (this.todoVal.trim() != "") {
         let newItem = {
@@ -28,21 +34,13 @@ export default {
           content: this.todoVal,
           showDel: false
         };
-        this.$store.dispatch("addTodoList", newItem);
-
-        this.todoVal = "";
-        console.log(this.todoList);
+        this.addTodoList({
+          newItem
+        });
       } else {
         alert("请输入有效内容");
       }
     }
-    // completeAllToggle() {
-    //   if (this.$store.todoList.every(element => element.complete === true)) {
-    //     this.todoList.forEach(element => (element.complete = false));
-    //   } else {
-    //     this.todoList.forEach(element => (element.complete = true));
-    //   }
-    // }
   }
 };
 </script>
