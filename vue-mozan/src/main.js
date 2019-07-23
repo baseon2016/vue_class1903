@@ -4,6 +4,7 @@ import "./assets/global.css";
 import PUBLICURL from "./publicPath";
 import store from "./store";
 import { router } from "./router";
+import "./assets/plugins/element";
 Vue.config.productionTip = false;
 //将App组件内的虚拟的dom结构，渲染为真实的dom结构，并挂载到#app这个元素上
 //框架写的是虚拟dom
