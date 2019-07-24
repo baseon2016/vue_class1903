@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="current-theme">
     <div class="container">
       <div class="inner-banner">
         <swiper :options="swiperOption" ref="mySwiper">
@@ -52,6 +52,12 @@ export default {
 </script>
 
 <style>
+.current-theme {
+  background-image: url("./../assets/img/theme-bg.png");
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .swiper-container {
   /* height: 404px; */
   width: 100%;

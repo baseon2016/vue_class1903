@@ -1,0 +1,12 @@
+const order = {
+  state: {
+    order: {
+      productId: null,
+      price: null,
+      model: null,
+      size: null,
+      qty: 1
+    }
+  }
+};
+export default order;
