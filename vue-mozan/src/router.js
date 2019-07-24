@@ -7,5 +7,5 @@ Vue.use(VueRouter);
 export const router = new VueRouter({
   base: "/",
   mode: "history",
-  routes: [{ path: "/", component: Main }]
+  routes: [{ path: PUBLICURL + "/", component: Main }]
 });

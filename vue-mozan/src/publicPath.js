@@ -1,2 +1,2 @@
-const PUBLICURL = "/mozan";
+const PUBLICURL = "";
 export default PUBLICURL;
