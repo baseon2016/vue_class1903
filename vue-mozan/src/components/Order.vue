@@ -19,14 +19,19 @@
     <div class="model df">
       <span class="tag">款式</span>
       <ul class="df">
-        <li class="item" v-for="item in presell.model" :key="item" @click="pickModel(item)">{{item}}</li>
+        <li
+          :class="{item:true,active:select.model===item?true:false}"
+          v-for="item in presell.model"
+          :key="item"
+          @click="pickModel(item)"
+        >{{item}}</li>
       </ul>
     </div>
     <div class="size df">
       <span class="tag">尺码</span>
       <ul class="df">
         <li
-          class="size-item"
+          :class="{'size-item':true,active:select.size===item?true:false}"
           v-for="item in presell.size"
           :key="item"
           @click="pickSize(item)"
@@ -53,7 +58,8 @@ export default {
   computed: {
     ...mapState({
       presell: state => state.eta.presell,
-      order: state => state.order.order
+      order: state => state.order.order,
+      select: state => state.order.select
     })
   },
   methods: {
@@ -174,9 +180,9 @@ export default {
   color: #fff;
   font-size: 18px;
 }
-.item.selected,
-.item-size.selected {
+.item.active,
+.size-item.active {
   color: #fdd900;
-  background-color: #fff;
+  border-color: #fdd900;
 }
 </style>

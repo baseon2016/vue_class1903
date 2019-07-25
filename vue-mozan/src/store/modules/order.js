@@ -1,3 +1,4 @@
+import Vue from "vue";
 const order = {
   state: {
     order: {
@@ -7,7 +8,8 @@ const order = {
       model: null,
       size: null,
       qty: 1
-    }
+    },
+    select: {}
   },
   mutations: {
     getPresell(state, payload) {
@@ -17,9 +19,13 @@ const order = {
     },
     transModel(state, payload) {
       state.order.model = payload;
+      // state.select.model = payload;
+      Vue.set(state.select, "model", payload);
     },
     transSize(state, payload) {
       state.order.size = payload;
+      // state.select.size = payload;
+      Vue.set(state.select, "size", payload);
     },
     addQty(state) {
       state.order.qty++;
