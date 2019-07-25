@@ -4,23 +4,43 @@
       <img src="./../assets/img/presell.png" />
       <h3>{{presell.title}}</h3>
     </div>
-    <div class="deadline-text">
-      <span>距预售结束</span>
-      <div class="deadline-clock">
-        <div class="df">
-          <span>{{eta.Days}}</span>
-          <span class="divider">:</span>
-          <span>{{eta.Hours}}</span>
-          <span class="divider">:</span>
-          <span>{{eta.Minutes}}</span>
-          <span class="divider">:</span>
-          <span>{{eta.Seconds}}</span>
+    <div class="deadline-block df mt-55">
+      <div class="deadline-text">
+        <span>距预售结束</span>
+        <div class="deadline-clock">
+          <div class="df">
+            <span>{{eta.Days}}</span>
+            <span class="divider">:</span>
+            <span>{{eta.Hours}}</span>
+            <span class="divider">:</span>
+            <span>{{eta.Minutes}}</span>
+            <span class="divider">:</span>
+            <span>{{eta.Seconds}}</span>
+          </div>
+          <div class="df">
+            <span>天</span>
+            <span>时</span>
+            <span>分</span>
+            <span>秒</span>
+          </div>
         </div>
-        <div class="df">
-          <span>天</span>
-          <span>时</span>
-          <span>分</span>
-          <span>秒</span>
+      </div>
+      <div class="zone">
+        <span>相关专区</span>
+        <div class="over-watch">
+          <img src="./../assets/img/over-watch.png" />
+        </div>
+      </div>
+    </div>
+    <div class="pt-10 deadline-block df">
+      <div class="share df">
+        <span class="wish">
+          <img src="./../assets/img/wish.png" /> 添加到愿望单
+        </span>
+        <div class="share-info df">
+          <span>分享</span>
+          <img src="./../assets/img/share1.png" />
+          <img src="./../assets/img/share2.png" />
         </div>
       </div>
       <span class="deadline-note">
@@ -71,13 +91,19 @@ export default {
   max-width: 396px;
   margin-left: 30px;
 }
-.deadline .deadline-text {
-  margin-top: 55px;
+.deadline .deadline-block {
+  width: 580px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.deadline .deadline-text,
+.deadline .zone {
   font-size: 14px;
   line-height: 1;
   color: #707378;
 }
-.deadline-text > span {
+.deadline-text > span,
+.zone > span {
   display: block;
   margin-bottom: 6px;
 }
@@ -85,7 +111,6 @@ export default {
   width: 418px;
   /* height: 64px; */
   padding: 8px 0;
-  margin-bottom: 17px;
   border-radius: 8px;
   background-color: #707378;
 }
@@ -99,11 +124,50 @@ export default {
 .deadline-clock div {
   justify-content: space-around;
 }
-.deadline-text .deadline-note {
-  margin-top: 16px;
+.zone .over-watch {
+  width: 151px;
+  height: 64px;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.zone .over-watch > img {
+  width: 100%;
+  display: block;
+}
+.share {
+  font-size: 12px;
+}
+.deadline-note {
+  font-size: 14px;
+}
+.deadline-note,
+.share {
   color: #fff;
+}
+.share span.wish {
+  display: block;
+  width: 115px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  text-align: center;
+}
+.share span.wish > img {
+  vertical-align: middle;
+}
+.share-info {
+  width: 71px;
+  margin-left: 15px;
+  justify-content: space-between;
 }
 .deadline-note .warn {
   color: #fdd900;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+.mt-55 {
+  margin-top: 55px;
 }
 </style>

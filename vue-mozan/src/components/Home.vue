@@ -1,33 +1,24 @@
 <template>
   <div>
-    <div class="home-top">
-      <div class="container df">
-        <h1 class="logo">
-          <img src="./../assets/img/logo.png" />
-        </h1>
-        <img src="./../assets/img/shopping-bag.png" />
-        <div>
-          <span>登陆</span>
-          <span>/</span>
-          <span>注册</span>
-        </div>
-      </div>
-    </div>
+    <HomeTop />
     <router-view></router-view>
-    <div class="home-foot"></div>
+    <HomeFoot />
   </div>
 </template>
 
 <script>
+import HomeTop from "./HomeTop";
+import HomeFoot from "./HomeFoot";
 export default {
-  name: "home"
+  name: "home",
+  components: {
+    HomeTop,
+    HomeFoot
+  }
 };
 </script>
 
 <style>
-.home-top {
-  background-image: url("./../assets/img/main-bg.png");
-}
 .container {
   width: 1200px;
   margin: 0 auto;
@@ -35,8 +26,5 @@ export default {
 .df {
   display: flex;
   align-items: center;
-}
-.logo {
-  align-self: center;
 }
 </style>

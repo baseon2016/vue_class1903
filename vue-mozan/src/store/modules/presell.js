@@ -1,12 +1,4 @@
 const presell = {
-  state: {
-    order: {
-      productId: null,
-      price: null,
-      model: null,
-      size: null,
-      qty: 1
-    }
-  }
+  state: {}
 };
 export default presell;
