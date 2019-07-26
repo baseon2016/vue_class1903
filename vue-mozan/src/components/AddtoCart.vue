@@ -1,6 +1,6 @@
 <template>
   <div class="addtocart">
-    <div class="container">
+    <div class="addtocart-inner container">
       <div>
         <img src="./../assets/img/addtocart/addtocart.png" />
       </div>
@@ -25,14 +25,14 @@
         </div>
         <div class="confirm df">
           <a class="return" @click="$router.back()">返回</a>
-          <router-link :to="$publicUrl+'/cart'" class="check">去购物车结算</router-link>
+          <router-link :to="$publicUrl+'/cart'" class="check" @click="startProcedure('cart')">去购物车结算</router-link>
           <span></span>
         </div>
       </div>
-      <div>
+      <div class="block">
         <div class="block-title df">
           <h3>您可能还需要</h3>
-          <hr />
+          <div class="line"></div>
         </div>
         <div class="block-content df">
           <img src="./../assets/img/addtocart/mayneed.png" />
@@ -47,18 +47,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "addtocart",
   computed: {
     ...mapState({
       order: state => state.order.order
     })
+  },
+  methods: {
+    ...mapMutations(["transProcedure"]),
+    startProcedure(step) {
+      this.transProcedure(step);
+    }
   }
 };
 </script>
 
 <style>
+.addtocart {
+  background-image: url("./../assets/img/style-bg.png");
+  background-repeat: repeat;
+}
+.addtocart-inner {
+  padding-bottom: 120px;
+  background-color: #fff;
+}
 .addtocart .orderitem {
   padding: 10px;
   border-top: 2px solid #babec9;
@@ -77,11 +91,20 @@ export default {
   margin-left: 10px;
   margin-right: 20px;
 }
+.orderitem {
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
 .orderitem .item-info {
   border-left: 2px solid #fdd900;
   padding-left: 20px;
   flex-grow: 1;
 }
+.orderitem .item-info span {
+  font-size: 12px;
+  color: #6f7277;
+}
+
 .orderitem .confirm {
   flex-shrink: 0;
 }
@@ -110,5 +133,22 @@ export default {
 }
 .orderitem .confirm {
   flex-shrink: 0;
+}
+.block .block-title {
+  margin-bottom: 30px;
+}
+.block .block-title h3 {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: normal;
+  color: #2c2d32;
+  margin-right: 10px;
+}
+.block .block-title .line {
+  background-color: #fdd900;
+  flex-grow: 1;
+}
+.block .block-content {
+  justify-content: space-between;
 }
 </style>

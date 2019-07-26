@@ -167,6 +167,7 @@ export default {
   margin-right: 5px;
 }
 .btn {
+  display: block;
   font-size: 24px;
   color: #fff;
   text-align: center;

@@ -67,10 +67,13 @@ export default {
   created() {
     this.changeDif();
     if (this.$store.state.eta.dif > 0) {
-      const clock = setInterval(this.changeDif, 1000);
+      this.clock = setInterval(this.changeDif, 1000);
     } else {
       clearInterval(this.clock);
     }
+  },
+  beforeDestroy() {
+    clearInterval(this.clock);
   }
 };
 </script>
