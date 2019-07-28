@@ -5,7 +5,7 @@
         购物车
         <span>
           [
-          <span class="showQty">{{order.qty}}</span>件]
+          <span class="showQty">{{totalQty}}</span>件]
         </span>
       </h3>
     </div>
@@ -27,14 +27,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "procedure",
   computed: {
     ...mapState({
       procedure: state => state.cart.procedure,
       order: state => state.order.order
-    })
+    }),
+    ...mapGetters(["totalQty"])
   },
   created() {
     console.log(this.$route);

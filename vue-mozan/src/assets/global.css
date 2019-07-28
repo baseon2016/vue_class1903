@@ -30,3 +30,7 @@ p {
   height: 2px;
   background-color: transparent;
 }
+.click-bar {
+  cursor: pointer;
+  user-select: none;
+}
