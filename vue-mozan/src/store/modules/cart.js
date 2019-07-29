@@ -15,7 +15,8 @@ const cart = {
         qty: 1,
         isCheck: true,
         storage: 5,
-        ban: false
+        ban: false,
+        presell: false
       },
       {
         productId: "cart2",
@@ -29,7 +30,8 @@ const cart = {
         qty: 1,
         isCheck: true,
         storage: 5,
-        ban: true
+        ban: true,
+        presell: false
       },
       {
         productId: "cart3",
@@ -43,7 +45,8 @@ const cart = {
         qty: 1,
         isCheck: true,
         storage: 0,
-        ban: false
+        ban: false,
+        presell: false
       }
     ]
   },
@@ -82,7 +85,6 @@ const cart = {
           ele.isCheck = false;
         }
       });
-      console.log("1111");
     },
     transQty(state, payload) {
       if (payload.type === "increase") {
@@ -141,6 +143,9 @@ const cart = {
           return num;
         }
       }, 0);
+    },
+    selectCart(state) {
+      return state.cart.filter(ele => ele.isCheck === true);
     },
     itemListBtns(state) {
       return state.cart.map(ele => {

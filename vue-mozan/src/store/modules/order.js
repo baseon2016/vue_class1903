@@ -7,7 +7,11 @@ const order = {
       price: null,
       model: null,
       size: null,
-      qty: 1
+      qty: 1,
+      isCheck: true,
+      storage: 5,
+      ban: false,
+      presell: true
     },
     select: {}
   },

@@ -5,6 +5,7 @@ import eta from "./modules/eta";
 import order from "./modules/order";
 import cart from "./modules/cart";
 import login from "./modules/login";
+import address from "./modules/address";
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
     eta,
     order,
     cart,
-    login
+    login,
+    address
   },
   plugins: [createLogger()]
 });

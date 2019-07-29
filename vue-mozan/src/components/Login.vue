@@ -13,7 +13,7 @@
                 <img src="./../assets/img/login/phone.png" />
               </div>
               <div class="login-text">
-                <input type="text" placeholder="请输入手机号" value="18903334607" />
+                <input type="text" placeholder="请输入手机号" v-model="phone" />
               </div>
             </div>
             <div class="df">
@@ -21,7 +21,7 @@
                 <img src="./../assets/img/login/password.png" />
               </div>
               <div class="login-text">
-                <input type="password" placeholder="请输入密码" value="7758258" />
+                <input type="password" placeholder="请输入密码" v-model="password" />
               </div>
             </div>
             <div class="df code-block">
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="login-btn">
-            <span>登陆</span>
+            <span @click="verifing">登陆</span>
           </div>
           <div class="login-func df">
             <span>忘记密码？</span>
@@ -52,13 +52,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "login",
   computed: {
     ...mapState({
       verify: state => state.login.verify
-    })
+    }),
+    phone: {
+      get() {
+        return this.$store.state.login.phone;
+      },
+      set(val) {
+        this.$store.commit("phoneInput", val);
+      }
+    },
+    password: {
+      get() {
+        return this.$store.state.login.password;
+      },
+      set(val) {
+        this.$store.commit("passwordInput", val);
+      }
+    }
+  },
+  methods: {
+    ...mapMutations(["verifing"])
   }
 };
 </script>

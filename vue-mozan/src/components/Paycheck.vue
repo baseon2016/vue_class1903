@@ -1,59 +1,57 @@
 <template>
-  <div class="cart">
-    <div class="cart-inner container">
-      <div class="cart-head">
+  <div class="paycheck">
+    <div class="paycheck-inner container">
+      <div class="paycheck-head">
         <Procedure />
       </div>
-      <div class="cart-main">
-        <CartList />
+      <div class="address-wrap">
+        <Address />
       </div>
-      <div class="cart-bottom">
-        <CartFoot />
+      <div class="checklist-wrap">
+        <CheckList />
       </div>
+      <div class="payment"></div>
     </div>
-    <Login />
   </div>
 </template>
 
 <script>
 import Procedure from "./Procedure";
-import CartList from "./CartList";
-import CartFoot from "./CartFoot";
-import Login from "./Login";
+import Address from "./Address";
+import CheckList from "./CheckList";
+
 import { mapMutations } from "vuex";
 export default {
-  name: "cart",
+  name: "paycheck",
   components: {
     Procedure,
-    CartList,
-    CartFoot,
-    Login
+    Address,
+    CheckList
   },
-
   methods: {
     ...mapMutations(["transProcedure"])
   },
   created() {
-    this.transProcedure("cart");
+    this.transProcedure("paycheck");
   }
 };
 </script>
 
 <style>
-.cart {
+.paycheck {
   background-image: url("./../assets/img/style-bg.png");
   background-repeat: repeat;
 }
-.cart-inner {
+.paycheck-inner {
   padding: 24px 50px 80px;
   background-color: #fff;
   background-image: url("./../assets/img/cart-top.png");
   background-repeat: no-repeat;
 }
-.cart-head {
+.paycheck-head {
   padding-bottom: 70px;
 }
-.cart-bottom {
-  padding-top: 50px;
+.address-wrap {
+  padding-bottom: 60px;
 }
 </style>

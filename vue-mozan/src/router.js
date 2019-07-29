@@ -4,6 +4,7 @@ import PUBLICURL from "./publicPath";
 import Main from "./components/Main";
 import AddtoCart from "./components/AddtoCart";
 import Cart from "./components/Cart";
+import Paycheck from "./components/Paycheck";
 Vue.use(VueRouter);
 
 export const router = new VueRouter({
@@ -12,6 +13,7 @@ export const router = new VueRouter({
   routes: [
     { path: PUBLICURL + "/", component: Main },
     { path: PUBLICURL + "/addtocart", component: AddtoCart },
-    { path: PUBLICURL + "/cart", component: Cart }
+    { path: PUBLICURL + "/cart", component: Cart },
+    { path: PUBLICURL + "/paycheck", component: Paycheck }
   ]
 });

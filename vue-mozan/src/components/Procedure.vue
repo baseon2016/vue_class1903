@@ -1,20 +1,22 @@
 <template>
   <div class="procedure-wrap df">
     <div class="left">
-      <h3>
+      <h3 v-if="procedure==='cart'">
         购物车
         <span>
           [
           <span class="showQty">{{totalQty}}</span>件]
         </span>
       </h3>
+      <h3 v-if="procedure==='paycheck'">填写订单</h3>
+      <h3 v-if="procedure==='pay'">收银台</h3>
     </div>
     <div class="procedure df">
       <div :class="{active:procedure==='cart'?true:false}">
         <span>购物车</span>
         <div class="line"></div>
       </div>
-      <div :class="{active:procedure==='order'?true:false}">
+      <div :class="{active:procedure==='paycheck'?true:false}">
         <span>填写订单</span>
         <div class="line"></div>
       </div>
@@ -36,9 +38,6 @@ export default {
       order: state => state.order.order
     }),
     ...mapGetters(["totalQty"])
-  },
-  created() {
-    console.log(this.$route);
   }
 };
 </script>

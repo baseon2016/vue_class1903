@@ -32,6 +32,7 @@
             <div class="item-info product df">
               <img src="./../assets/img/banner-pic1.png" />
               <img
+                v-if="item.ban||item.storage===0"
                 :src="item.ban?require('./../assets/img/ban.png'):item.storage===0?require('./../assets/img/sellout.png'):''"
                 class="warn-icon"
               />
@@ -87,9 +88,10 @@ export default {
     ...mapMutations(["transCheck", "transCheckAll", "transQty", "delCartItem"])
   },
   created() {
-    // this.cart.unshift(this.order);
+    this.cart.unshift(this.order);
     // 为什么这里直接调用mapMutations却不能生效
-    this.$store.commit("transCheckAll");
+    this.transCheckAll();
+    // this.$store.commit("transCheckAll");
   }
 };
 </script>
@@ -146,13 +148,12 @@ export default {
   width: 96px;
 }
 .item-block .item-info img.warn-icon {
-  display: none;
   width: 65px;
   margin-left: 10px;
 }
-.item-block.unsell .item-info img.warn-icon {
+/* .item-block.unsell .item-info img.warn-icon {
   display: block;
-}
+} */
 .item-block .item-info h3 {
   max-width: 240px;
   /* color: #2c2d32; */

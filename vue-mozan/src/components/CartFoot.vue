@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="cart-route">
-      <span class="btn-route click-bar" @click="startVerify">去结算</span>
+      <span class="btn-route click-bar" @click="startVerify({$router,$publicUrl})">去结算</span>
     </div>
   </div>
 </template>
