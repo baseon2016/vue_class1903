@@ -6,6 +6,8 @@ import order from "./modules/order";
 import cart from "./modules/cart";
 import login from "./modules/login";
 import address from "./modules/address";
+import paycheck from "./modules/paycheck";
+import calpay from "./modules/calpay";
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -14,7 +16,9 @@ const store = new Vuex.Store({
     order,
     cart,
     login,
-    address
+    address,
+    paycheck,
+    calpay
   },
   plugins: [createLogger()]
 });

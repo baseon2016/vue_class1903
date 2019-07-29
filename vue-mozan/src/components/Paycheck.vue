@@ -10,7 +10,12 @@
       <div class="checklist-wrap">
         <CheckList />
       </div>
-      <div class="payment"></div>
+      <div class="payment-wrap">
+        <Payment />
+      </div>
+      <div class="cal-paycheck-wrap">
+        <CalPaycheck />
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +24,8 @@
 import Procedure from "./Procedure";
 import Address from "./Address";
 import CheckList from "./CheckList";
+import Payment from "./Payment";
+import CalPaycheck from "./CalPaycheck";
 
 import { mapMutations } from "vuex";
 export default {
@@ -26,11 +33,14 @@ export default {
   components: {
     Procedure,
     Address,
-    CheckList
+    CheckList,
+    Payment,
+    CalPaycheck
   },
   methods: {
     ...mapMutations(["transProcedure"])
   },
+
   created() {
     this.transProcedure("paycheck");
   }
@@ -53,5 +63,8 @@ export default {
 }
 .address-wrap {
   padding-bottom: 60px;
+}
+.cal-paycheck-wrap {
+  padding: 50px 0;
 }
 </style>

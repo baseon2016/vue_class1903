@@ -73,7 +73,7 @@ export default {
   font-size: 14px;
 }
 .cart-list .item-block .product {
-  width: 617px;
+  min-width: 617px;
 }
 .item-block .item-info .info-text h3 {
   max-width: 490px;
