@@ -13,6 +13,12 @@
       <div class="payment-wrap">
         <Payment />
       </div>
+      <div class="note-wrap">
+        <div class="note-title">
+          <h3>备注</h3>
+        </div>
+        <textarea class="note" rows="10"></textarea>
+      </div>
       <div class="cal-paycheck-wrap">
         <CalPaycheck />
       </div>
@@ -27,7 +33,7 @@ import CheckList from "./CheckList";
 import Payment from "./Payment";
 import CalPaycheck from "./CalPaycheck";
 
-import { mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "paycheck",
   components: {
@@ -36,6 +42,9 @@ export default {
     CheckList,
     Payment,
     CalPaycheck
+  },
+  computed: {
+    ...mapState
   },
   methods: {
     ...mapMutations(["transProcedure"])
@@ -66,5 +75,15 @@ export default {
 }
 .cal-paycheck-wrap {
   padding: 50px 0;
+}
+
+.note-wrap .note-title {
+  padding: 20px 0;
+}
+.note {
+  font-size: 18px;
+  width: 100%;
+  resize: none;
+  border-top: 2px solid #000;
 }
 </style>

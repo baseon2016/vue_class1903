@@ -103,11 +103,11 @@ export default {
 .size,
 .qty {
   margin: 15px 0;
-}
-.order .price {
   align-items: flex-start;
 }
+
 .order span.tag {
+  flex-shrink: 0;
   display: block;
   width: 64px;
   height: 26px;
@@ -117,6 +117,11 @@ export default {
   text-align: center;
   margin-right: 30px;
 }
+
+span.tag {
+  align-items: flex-start;
+}
+
 .price .value strong {
   font-size: 24px;
   color: #fdd900;

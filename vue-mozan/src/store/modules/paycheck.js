@@ -5,7 +5,8 @@ const paycheck = {
       logisticMode: true,
       receipt: false
     },
-    receiptFor: null
+    receiptFor: null,
+    notes: null
   },
   mutations: {
     selectPayMode(state) {
