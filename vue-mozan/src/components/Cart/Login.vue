@@ -3,14 +3,14 @@
     <div class="login">
       <div class="login-top">
         <div class="login-logo">
-          <img src="./../assets/img/login/login-logo.png" />
+          <img src="./../../assets/img/login/login-logo.png" />
           <span>x</span>
         </div>
         <div class="login-content">
           <div class="login-form">
             <div class="df">
               <div class="login-icon df">
-                <img src="./../assets/img/login/phone.png" />
+                <img src="./../../assets/img/login/phone.png" />
               </div>
               <div class="login-text">
                 <input type="text" placeholder="请输入手机号" v-model="phone" />
@@ -18,7 +18,7 @@
             </div>
             <div class="df">
               <div class="login-icon df">
-                <img src="./../assets/img/login/password.png" />
+                <img src="./../../assets/img/login/password.png" />
               </div>
               <div class="login-text">
                 <input type="password" placeholder="请输入密码" v-model="password" />
@@ -29,7 +29,7 @@
                 <input type="text" />
               </div>
               <div class="code">
-                <img src="./../assets/img/login/code.png" />
+                <img src="./../../assets/img/login/code.png" />
               </div>
             </div>
           </div>
@@ -43,9 +43,9 @@
         </div>
       </div>
       <div class="out-link df">
-        <img src="./../assets/img/login/qq.png" />
-        <img src="./../assets/img/login/wechat.png" />
-        <img src="./../assets/img/login/weibo.png" />
+        <img src="./../../assets/img/login/qq.png" />
+        <img src="./../../assets/img/login/wechat.png" />
+        <img src="./../../assets/img/login/weibo.png" />
       </div>
     </div>
   </div>

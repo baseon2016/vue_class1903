@@ -20,7 +20,7 @@
       <span class="tag">款式</span>
       <ul class="df">
         <li
-          :class="{item:true,active:select.model===item?true:false}"
+          :class="{item:true,active:select.model===item?true:false,wrapmgb:presell.model.length>4}"
           v-for="item in presell.model"
           :key="item"
           @click="pickModel(item)"
@@ -31,7 +31,7 @@
       <span class="tag">尺码</span>
       <ul class="df">
         <li
-          :class="{'size-item':true,active:select.size===item?true:false}"
+          :class="{'size-item':true,active:select.size===item?true:false,wrapmgb:presell.size.length>4}"
           v-for="item in presell.size"
           :key="item"
           @click="pickSize(item)"
@@ -140,8 +140,8 @@ span.tag {
 .size ul {
   flex-wrap: wrap;
 }
-.model ul > li,
-.size ul > li {
+.model ul > li.wrapmgb,
+.size ul > li.wrapmgb {
   margin-bottom: 5px;
 }
 .qty ul {

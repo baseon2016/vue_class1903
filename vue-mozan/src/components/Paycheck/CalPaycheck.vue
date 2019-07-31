@@ -16,31 +16,31 @@
         <span>*</span>
       </div>
       <div>
-        <span v-for="item in calpay" :key="item.productId">￥{{item.price}}</span>
+        <span v-for="item in calpay" :key="item.productId">￥{{item.price.toFixed(2)}}</span>
       </div>
       <div>
         <span>=</span>
       </div>
       <div>
-        <span v-for="item in calpay" :key="item.productId">￥{{item.subtotal}}</span>
+        <span v-for="item in calpay" :key="item.productId">￥{{item.subtotal.toFixed(2)}}</span>
       </div>
       <div>
         <span>-</span>
       </div>
       <div>
-        <span>￥{{coupon}}</span>
+        <span>￥{{coupon.toFixed(2)}}</span>
       </div>
       <div>
         <span>+</span>
       </div>
       <div>
-        <span>￥{{shippingCost}}</span>
+        <span>￥{{shippingCost.toFixed(2)}}</span>
       </div>
       <div>
         <span>=</span>
       </div>
       <div>
-        <span class="actural-pay">￥{{acturalPay}}</span>
+        <span class="actural-pay">￥{{acturalPay.toFixed(2)}}</span>
       </div>
     </div>
   </div>

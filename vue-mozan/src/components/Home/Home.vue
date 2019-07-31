@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import HomeTop from "./HomeTop";
-import HomeFoot from "./HomeFoot";
+import HomeTop from "./../HomeTop";
+import HomeFoot from "./../HomeFoot";
 export default {
   name: "home",
   components: {

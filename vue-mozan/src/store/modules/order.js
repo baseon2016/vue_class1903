@@ -36,6 +36,13 @@ const order = {
     },
     minusQty(state) {
       state.order.qty--;
+    },
+    canOrder(state, payload) {
+      if (state.order.model && state.order.size) {
+        payload.$router.push(payload.$publicUrl + "/addtocart");
+      } else {
+        alert("未选择订购信息,请完成订购信息");
+      }
     }
   }
 };

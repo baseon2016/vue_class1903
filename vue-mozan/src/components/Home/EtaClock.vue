@@ -1,7 +1,7 @@
 <template>
   <div class="deadline">
     <div class="presell-title df">
-      <img src="./../assets/img/presell.png" />
+      <img src="./../../assets/img/presell.png" />
       <h3>{{presell.title}}</h3>
     </div>
     <div class="deadline-block df mt-55">
@@ -28,19 +28,19 @@
       <div class="zone">
         <span>相关专区</span>
         <div class="over-watch">
-          <img src="./../assets/img/over-watch.png" />
+          <img src="./../../assets/img/over-watch.png" />
         </div>
       </div>
     </div>
     <div class="pt-10 deadline-block df">
       <div class="share df">
         <span class="wish">
-          <img src="./../assets/img/wish.png" /> 添加到愿望单
+          <img src="./../../assets/img/wish.png" /> 添加到愿望单
         </span>
         <div class="share-info df">
           <span>分享</span>
-          <img src="./../assets/img/share1.png" />
-          <img src="./../assets/img/share2.png" />
+          <img src="./../../assets/img/share1.png" />
+          <img src="./../../assets/img/share2.png" />
         </div>
       </div>
       <span class="deadline-note">

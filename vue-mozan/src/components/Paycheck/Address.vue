@@ -2,29 +2,29 @@
   <div>
     <div class="address-title df">
       <span>收货地址</span>
-      <div class="df">
+      <div class="click-bar df" @click="setAddNew">
         <span class="new-addr">+</span>
         <span>新增地址</span>
       </div>
     </div>
     <div class="address-content">
       <div
-        v-for="item in addresses"
+        v-for="item in showAddresses"
         :key="item.id"
         :class="{cell:true, df:true,inuse:item.inUse}"
         @click="useWhich(item)"
       >
         <div>
           <p>
-            <img src="./../assets/img/address/addressee.png" />
+            <img src="./../../assets/img/address/addressee.png" />
             {{item.addressee}}
           </p>
           <p>
-            <img src="./../assets/img/address/address.png" />
+            <img src="./../../assets/img/address/address.png" />
             {{item.address}}
           </p>
           <p>
-            <img src="./../assets/img/address/tel.png" />
+            <img src="./../../assets/img/address/tel.png" />
             {{item.phone}}
           </p>
         </div>
@@ -34,11 +34,11 @@
             <span v-else class="undefault" @click.stop="setDefault(item)">设为默认</span>
           </div>
           <div>
-            <img src="./../assets/img/address/edit.png" alt />
+            <img src="./../../assets/img/address/edit.png" alt />
             <span>编辑</span>
           </div>
           <div>
-            <img src="./../assets/img/bin.png" alt />
+            <img src="./../../assets/img/bin.png" alt />
             <span>删除</span>
           </div>
         </div>
@@ -46,22 +46,27 @@
       </div>
     </div>
     <div class="address-more">
-      <span class="click-bar">显示更多</span>
+      <span v-if="addressMore" class="click-bar" @click="showMore">显示更多</span>
+      <span v-else class="click-bar" @click="showDefault">收起显示</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   name: "ship-address",
   computed: {
-    ...mapState({
-      addresses: state => state.address.addresses
-    })
+    ...mapGetters(["addressMore", "showAddresses"])
   },
   methods: {
-    ...mapMutations(["useWhich", "setDefault"])
+    ...mapMutations([
+      "useWhich",
+      "setDefault",
+      "showMore",
+      "showDefault",
+      "setAddNew"
+    ])
   }
 };
 </script>
@@ -141,6 +146,6 @@ export default {
   line-height: 60px;
   text-align: center;
   font-weight: bold;
-  background-image: url("./../assets/img/mask.png");
+  background-image: url("./../../assets/img/mask.png");
 }
 </style>

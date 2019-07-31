@@ -6,32 +6,34 @@
         <Order />
       </div>
       <div class="order-btn">
-        <router-link :to="$publicUrl + '/addtocart'">
-          <span>立即预购</span>
-        </router-link>
+        <span @click="canOrder({$router,$publicUrl})">立即预购</span>
       </div>
     </div>
-    <img src="./../assets/img/goods1.png" />
-    <img src="./../assets/img/goods2.png" />
+    <img src="./../../assets/img/goods1.png" />
+    <img src="./../../assets/img/goods2.png" />
   </div>
 </template>
 
 <script>
 import EtaClock from "./EtaClock";
 import Order from "./Order";
+import { mapMutations } from "vuex";
 export default {
   name: "presell",
   components: {
     EtaClock,
     Order
+  },
+  methods: {
+    ...mapMutations(["canOrder"])
   }
 };
 </script>
 
 <style>
 .presell {
-  background-image: url("./../assets/img/presell-bg.png"),
-    url("./../assets/img/goods1.png"), url("./../assets/img/goods2.png");
+  background-image: url("./../../assets/img/presell-bg.png"),
+    url("./../../assets/img/goods1.png"), url("./../../assets/img/goods2.png");
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: 0 0, 0 581px, 0 2687px;
   padding: 30px 50px 0;

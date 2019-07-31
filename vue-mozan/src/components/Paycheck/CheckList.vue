@@ -13,10 +13,10 @@
         >
           <div class="item-block-main df">
             <div class="item-info product df">
-              <img src="./../assets/img/banner-pic1.png" />
+              <img src="./../../assets/img/banner-pic1.png" />
               <img
                 v-if="item.presell"
-                :src="item.presell?require('./../assets/img/address/presell-icon.png'):''"
+                :src="item.presell?require('./../../assets/img/address/presell-icon.png'):''"
                 class="warn-icon"
               />
               <!-- 上面使用三目运算require引入图片的方式 -->

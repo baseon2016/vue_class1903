@@ -1,7 +1,7 @@
 <template>
-  <div class="paycheck">
-    <div class="paycheck-inner container">
-      <div class="paycheck-head">
+  <div class="paycheck mainblock-bg">
+    <div class="paycheck-inner mainblock-inner-bg container">
+      <div class="mainblock-head">
         <Procedure />
       </div>
       <div class="address-wrap">
@@ -22,16 +22,23 @@
       <div class="cal-paycheck-wrap">
         <CalPaycheck />
       </div>
+      <div class="sub-check df">
+        <router-link :to="$publicUrl+'/pay'">
+          <span class="btn-route click-bar">提交订单</span>
+        </router-link>
+      </div>
     </div>
+    <NewAddress />
   </div>
 </template>
 
 <script>
-import Procedure from "./Procedure";
+import Procedure from "./../Procedure";
 import Address from "./Address";
 import CheckList from "./CheckList";
 import Payment from "./Payment";
 import CalPaycheck from "./CalPaycheck";
+import NewAddress from "./NewAddress";
 
 import { mapState, mapMutations } from "vuex";
 export default {
@@ -41,7 +48,8 @@ export default {
     Address,
     CheckList,
     Payment,
-    CalPaycheck
+    CalPaycheck,
+    NewAddress
   },
   computed: {
     ...mapState
@@ -58,17 +66,7 @@ export default {
 
 <style>
 .paycheck {
-  background-image: url("./../assets/img/style-bg.png");
-  background-repeat: repeat;
-}
-.paycheck-inner {
-  padding: 24px 50px 80px;
-  background-color: #fff;
-  background-image: url("./../assets/img/cart-top.png");
-  background-repeat: no-repeat;
-}
-.paycheck-head {
-  padding-bottom: 70px;
+  position: relative;
 }
 .address-wrap {
   padding-bottom: 60px;
@@ -85,5 +83,8 @@ export default {
   width: 100%;
   resize: none;
   border-top: 2px solid #000;
+}
+.sub-check {
+  justify-content: flex-end;
 }
 </style>

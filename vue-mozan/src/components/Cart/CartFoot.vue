@@ -12,12 +12,12 @@
               <span>全选</span>
             </div>
             <div class="bin" @click="delSelected">
-              <img src="./../assets/img/bin.png" />
+              <img src="./../../assets/img/bin.png" />
               <span>删除</span>
             </div>
           </div>
           <div class="to-wish">
-            <img src="./../assets/img/wish.png" />
+            <img src="./../../assets/img/wish.png" />
             <span>转到愿望单</span>
           </div>
         </div>
@@ -120,14 +120,5 @@ export default {
 }
 .cart-foot .cart-route {
   flex-shrink: 0;
-}
-.cart-route .btn-route {
-  display: block;
-  width: 220px;
-  background-color: #fdd900;
-  color: #2b2e33;
-  font-size: 26px;
-  line-height: 60px;
-  text-align: center;
 }
 </style>

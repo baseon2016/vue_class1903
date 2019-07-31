@@ -1,11 +1,11 @@
 <template>
   <div class="home-top">
     <div class="top-inner container df">
-      <img src="./../assets/img/drop-down.png" />
+      <img class="drop-down" src="./../assets/img/drop-down.png" />
       <h1 class="logo">
         <img src="./../assets/img/logo.png" />
       </h1>
-      <div class="df">
+      <div class="top-func df">
         <img class="search" src="./../assets/img/search.png" />
         <img class="bag" src="./../assets/img/shopping-bag.png" />
         <div class="user">
@@ -30,6 +30,13 @@ export default {
 }
 .top-inner {
   justify-content: space-between;
+  position: relative;
+}
+.top-inner img.drop-down {
+  margin-left: 57px;
+}
+.top-inner .top-func {
+  padding: 26.5px 0;
 }
 .top-inner .search {
   margin-right: 68px;
@@ -40,8 +47,11 @@ export default {
 .top-inner .user {
   margin-right: 40px;
 }
-.logo {
-  align-self: center;
+.top-inner .logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .user span {
   font-family: serif;

@@ -30,10 +30,10 @@
           </div>
           <div class="item-block-main df">
             <div class="item-info product df">
-              <img src="./../assets/img/banner-pic1.png" />
+              <img src="./../../assets/img/banner-pic1.png" />
               <img
                 v-if="item.ban||item.storage===0"
-                :src="item.ban?require('./../assets/img/ban.png'):item.storage===0?require('./../assets/img/sellout.png'):''"
+                :src="item.ban?require('./../../assets/img/ban.png'):item.storage===0?require('./../../assets/img/sellout.png'):''"
                 class="warn-icon"
               />
               <!-- 上面使用三目运算require引入图片的方式 -->
@@ -136,7 +136,7 @@ export default {
   top: 0;
   z-index: 1;
   opacity: 0.4;
-  background-image: url("./../assets/img/mask.png");
+  background-image: url("./../../assets/img/mask.png");
 }
 .item-block.unsell .item-block-main .mask {
   display: block;
@@ -191,9 +191,6 @@ export default {
   user-select: none;
 }
 
-input.custome-check {
-  display: none;
-}
 label.custome-label {
   display: block;
   width: 26px;

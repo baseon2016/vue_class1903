@@ -26,7 +26,6 @@
         <div class="confirm df">
           <a class="return" @click="$router.back()">返回</a>
           <router-link :to="$publicUrl+'/cart'" class="check" @click="startProcedure('cart')">去购物车结算</router-link>
-          <span></span>
         </div>
       </div>
       <div class="block">

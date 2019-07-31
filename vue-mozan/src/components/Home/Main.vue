@@ -5,13 +5,13 @@
         <swiper :options="swiperOption" ref="mySwiper">
           <!-- slides -->
           <swiper-slide>
-            <img src="./../assets/img/banner-pic1.png" />
+            <img src="./../../assets/img/banner-pic1.png" />
           </swiper-slide>
           <swiper-slide>
-            <img src="./../assets/img/banner-pic2.png" />
+            <img src="./../../assets/img/banner-pic2.png" />
           </swiper-slide>
           <swiper-slide>
-            <img src="./../assets/img/banner-pic3.png" />
+            <img src="./../../assets/img/banner-pic3.png" />
           </swiper-slide>
           <!-- Optional controls -->
         </swiper>
@@ -53,7 +53,7 @@ export default {
 
 <style>
 .current-theme {
-  background-image: url("./../assets/img/theme-bg.png");
+  background-image: url("./../../assets/img/theme-bg.png");
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -65,7 +65,7 @@ export default {
 .inner-banner {
   position: relative;
   padding: 28px 50px;
-  background-image: url("./../assets/img/banner-bg.png");
+  background-image: url("./../../assets/img/banner-bg.png");
 }
 /* .swiper-button-prev {
   background-image: url("./../assets/img/swiper-prev_03.png");

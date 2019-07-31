@@ -1,7 +1,7 @@
 <template>
-  <div class="cart">
-    <div class="cart-inner container">
-      <div class="cart-head">
+  <div class="cart mainblock-bg">
+    <div class="cart-inner mainblock-inner-bg container">
+      <div class="mainblock-head">
         <Procedure />
       </div>
       <div class="cart-main">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Procedure from "./Procedure";
+import Procedure from "./../Procedure";
 import CartList from "./CartList";
 import CartFoot from "./CartFoot";
 import Login from "./Login";
@@ -40,17 +40,17 @@ export default {
 </script>
 
 <style>
-.cart {
-  background-image: url("./../assets/img/style-bg.png");
+.mainblock-bg {
+  background-image: url("./../../assets/img/style-bg.png");
   background-repeat: repeat;
 }
-.cart-inner {
+.mainblock-inner-bg {
   padding: 24px 50px 80px;
   background-color: #fff;
-  background-image: url("./../assets/img/cart-top.png");
+  background-image: url("./../../assets/img/cart-top.png");
   background-repeat: no-repeat;
 }
-.cart-head {
+.mainblock-head {
   padding-bottom: 70px;
 }
 .cart-bottom {
