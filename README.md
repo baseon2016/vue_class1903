@@ -339,26 +339,60 @@ new Vue({
 - 先确保本地的 localhost:8080 下的项目能正常运行
 - 在项目下打开命令行 `npm run build`,把你做好的项目打包到项目下的 dist 文件夹下
 
+#### github 部署 vue 项目(带路由的)
+
+- 1.保证本地项目正常运行
+- 2.由于部署了到了你自己的 github 某个仓库下（仓库名 vue-xxx），并不是 xxx.github.io 仓库。部署项目的时候必须设置 publicPath
+- 3.新建 vue.config.js 去配置 publicPath
+- 4.把自己项目内路由相关的所有地址（router 内的 Path router-link 的 to,router 的 push 方法）
+- 5.在本地重启环境访问网址 localhost:8080/vue-xxx 项目正常运行，所有的路由都是 localhost:8080/vue-xxx 下的子地址
+- 6.安装一个上传工具 gh-pages,在 package.json 内设置好脚本命令
+- 7.将本地的项目做成 git 仓库上传
+
+- 8.执行部署命令生成 dist 文件夹
+
+  - 新建分支并切换过去,删除内容只剩下 dist,上传 gh-pages 分支
+  - 以后更新使用 npm run deploy (不能使用的话重新执行之前的步骤)
+    如果不使用 gh-pages 命令,新建分支 gh-pages,并且换过去,删除除 dist 以及.gitignore .git 之外的所有内容,将 dist 文件内的内容移出来再删除 dist 文件夹，上传分支。
+    更新的时候：先切换 master（本地分支和网上分支同步才可以切换），npm i，修改项目上传到 master,npm run build 生成 dist，先把 dist 文件拷贝出去,切换到 gh-pages 分支,将拷贝出去的 dist 文件夹下的所有内容复制进来替换原来的,上传 gh-pages 分支
+
+- 9.打开部署后的网址可以访问项目了
+- 10.但是该项目由于 vue 路由模式是 history,会出现子页面刷新的时候 404,可以将模式改为 hash 模式(此模式下路径会加上#,导致你的 router-link 的 active 会发生变化),不使用 hash 模式的话需要后台服务器设置配置,将所有链接默认指向 index.html
+- 11.如果你把路由的模式改成了 hash 模式,那么我们项目内的所有路由相关地址不需要加 publicPath(我们自己设置的公共变量,已经设置过了把值改为""),但是仍然需要设置 vue.config.js 内的 publicPath
+
+#####错误信息
+
 #### Vuex
 
 - 状态管理模式 ---> 状态共享到 store,通过 store 共享给其他组件,组件也可以直接修改共享状态
 
 #### vuex 流程 关键字
+
 ##### state 属性
+
 存放公共状态属性 `$store.state`
-##### mutations属性
+
+##### mutations 属性
+
 存储修改 state 的方法对象
+
 - mutation 函数可以接受两个参数 1.state 2.payload
 - 而且该函数必须是同步函数
-- 通过store 的commit 方法调用mutations 函数
-##### actions属性
-存储异步操作函数的对象,修改state时需要发送请求,由于mutations不能使用异步函数，所以有了actions
+- 通过 store 的 commit 方法调用 mutations 函数
+
+##### actions 属性
+
+存储异步操作函数的对象,修改 state 时需要发送请求,由于 mutations 不能使用异步函数，所以有了 actions
+
 - actions 函数可以接受两个参数 1.context 2.payload
-- 而且该函数必须是异步函数,如果没有异步操作不需要写action函数
-- 通过store 的 dispatch 方法调用 actions 函数
+- 而且该函数必须是异步函数,如果没有异步操作不需要写 action 函数
+- 通过 store 的 dispatch 方法调用 actions 函数
+
 ##### getters 属性
-store的计算属性 `$store.getters`
-- getters 函数内可以接收两个参数 1.state(自己模块的state) 2.getters(store内的其他getters) 3.rootState(根目录state)
+
+store 的计算属性 `$store.getters`
+
+- getters 函数内可以接收两个参数 1.state(自己模块的 state) 2.getters(store 内的其他 getters) 3.rootState(根目录 state)
 - 用法和写法与组件内的 computed 一样
 
 如何创建 store
@@ -389,9 +423,8 @@ export default store;
 组件内动态修改 store
 
 - 直接使用\$store.commit 方法去触发创建好的 mutations 函数 `$store.commit('changeCount')`
-  - 修改store的时候可能需要传递参数。如何传递 `$store.commit('changeCount',1000)`
-  - 注意传递的参数只能1个，需要传递多个，把多个参数合并成对象传递
-
+  - 修改 store 的时候可能需要传递参数。如何传递 `$store.commit('changeCount',1000)`
+  - 注意传递的参数只能 1 个，需要传递多个，把多个参数合并成对象传递
 
 #### 错误提示
 

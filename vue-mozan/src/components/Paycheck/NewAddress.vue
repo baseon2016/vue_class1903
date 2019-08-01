@@ -39,7 +39,7 @@
               <span class="required">请填写完整的所在地区!</span>
             </div>
             <div>
-              <VDistpicker />
+              <v-distpicker @selected="sel"></v-distpicker>
             </div>
           </div>
           <div class="newaddress-detail">
@@ -67,9 +67,9 @@
                 <span>常用别名</span>
               </div>
               <div class="usual-alias df">
-                <span>家</span>
-                <span>公司</span>
-                <span>父母家</span>
+                <span @click="setDistrictAlias('家')">家</span>
+                <span @click="setDistrictAlias('公司')">公司</span>
+                <span @click="setDistrictAlias('父母家')">父母家</span>
               </div>
             </div>
           </div>
@@ -77,11 +77,11 @@
         <div class="newaddress-foot df">
           <div class="df" @click="transNewDefault">
             <Checker :checking="newDefault" />
-            <span class="set-default">设为默认地址</span>
+            <span class="set-default click-bar">设为默认地址</span>
           </div>
           <span
             class="btn-route click-bar"
-            @click="createNew({id:Date.now(),addresses,setDefault,sel})"
+            @click="createNew({id:Date.now(),addresses,setDefault})"
           >保存地址</span>
         </div>
       </div>

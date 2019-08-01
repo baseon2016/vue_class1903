@@ -35,7 +35,7 @@
           </div>
           <div>
             <img src="./../../assets/img/address/edit.png" alt />
-            <span>编辑</span>
+            <span @click.stop="editNew(item)">编辑</span>
           </div>
           <div>
             <img src="./../../assets/img/bin.png" alt />
@@ -65,7 +65,8 @@ export default {
       "setDefault",
       "showMore",
       "showDefault",
-      "setAddNew"
+      "setAddNew",
+      "editNew"
     ])
   }
 };
