@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>webpack 搭建 vue环境</h1>
-    <Home />
+    <ul>
+      <li>
+        <router-link to="/">首页</router-link>
+      </li>
+      <li>
+        <router-link to="/about">关于</router-link>
+      </li>
+    </ul>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -17,7 +25,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 h1 {
   color: pink;
 }
